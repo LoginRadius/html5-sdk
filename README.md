@@ -4,16 +4,17 @@ Description: LoginRadius's JS SDK is a development kit that lets you integrate S
 
 
 This SDK supports authentication as well as user profile data. To implement it on a Html5 website please follow these quick steps:
+
 1. Download the LoginRadius JS SDK and add it to your web project.
 2. Add the below script under body section of the page and login from social login. After successful authentication, you will get user profile data of the user.
 
-	<script type="text/javascript">
-	    LoginRadiusSDK.onlogin = Successfullylogin;
-	
-	    function Successfullylogin() {
-	        LoginRadiusSDK.getUserprofile(function (data) {
-	            document.getElementById("profile").innerHTML = JSON.stringify(data);
-	        });
-	        return false;
-	    };    
-	</script>
+			<script type="text/javascript">
+			    LoginRadiusSDK.onlogin = Successfullylogin;
+			
+			    function Successfullylogin() {
+			        LoginRadiusSDK.getUserprofile(function (data) {
+			            document.getElementById("profile").innerHTML = JSON.stringify(data);
+			        });
+			        return false;
+			    };    
+			</script>
