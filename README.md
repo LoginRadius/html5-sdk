@@ -129,7 +129,7 @@ You can use this API to get events from users social network - Facebook.
 
     LoginRadiusSDK.getevents(function (events) {
         //just display to a html element, it return JSON array
-        document.getElementById("events").innerHTML = JSON.stringify(companies);
+        document.getElementById("events").innerHTML = JSON.stringify(events);
     });
 
 
@@ -143,9 +143,9 @@ You can use this API to get status messages from users social network - Facebook
 > any of social network. The lifetime of LoginRadius token is 15 mins,
 > this token automatically save into `sessionStorage`.
 
-    LoginRadiusSDK.getevents(function (events) {
+    LoginRadiusSDK.getsStatus(function (statuses) {
         //just display to a html element, it return JSON array
-        document.getElementById("events").innerHTML = JSON.stringify(companies);
+        document.getElementById("statuses").innerHTML = JSON.stringify(statuses);
     });
 
 
