@@ -16,7 +16,7 @@ Installation
 
 **Sample code for authentication and get basic profile data**
 
-    <script src="LoginRadiusSDK.1.0.0.js" type="text/javascript">
+    <script src="LoginRadiusSDK.1.0.0.js" type="text/javascript"></script>
     <script type="text/javascript">
          LoginRadiusSDK.onlogin = Successfullylogin;
     
