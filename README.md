@@ -97,7 +97,7 @@ You can use this API to get groups from users social network - Facebook.
 > any of social network. The lifetime of LoginRadius token is 15 mins,
 > this token automatically save into `sessionStorage`.
 
-    LoginRadiusSDK.getgroups(function (groups) {
+    LoginRadiusSDK.getGroups(function (groups) {
         //just display to a html element, it return JSON array
         document.getElementById("groups").innerHTML = JSON.stringify(groups);
     });
@@ -127,7 +127,7 @@ You can use this API to get events from users social network - Facebook.
 > any of social network. The lifetime of LoginRadius token is 15 mins,
 > this token automatically save into `sessionStorage`.
 
-    LoginRadiusSDK.getevents(function (events) {
+    LoginRadiusSDK.getEvents(function (events) {
         //just display to a html element, it return JSON array
         document.getElementById("events").innerHTML = JSON.stringify(events);
     });
