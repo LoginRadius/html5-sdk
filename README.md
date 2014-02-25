@@ -54,11 +54,11 @@ You can use this API to send direct message to your contacts from users social n
 > any of social network. The lifetime of LoginRadius token is 15 mins,
 > this token automatically save into `sessionStorage`.
 
-   LoginRadiusSDK.senddirectmessage (to, subject, message, function (isposted) {
-        //just display to a html element, it return true/false
+
+    LoginRadiusSDK.senddirectmessage (to, subject, message, function (isposted) {
+       //just display to a html element, it return true/false
         document.getElementById("isposted").innerHTML = JSON.stringify(isposted);
     });
-    
 
 LoginRadius Post API
 ----
