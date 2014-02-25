@@ -46,6 +46,20 @@ You can use this API to fetch contacts from users social networks/email clients 
         document.getElementById("contacts").innerHTML = JSON.stringify(contacts);
     });
 
+LoginRadius Direct Message API
+---
+You can use this API to send direct message to your contacts from users social networks - Twitter/LinkedIn.
+
+> LoginRadius generate a unique session token, when user logs in with
+> any of social network. The lifetime of LoginRadius token is 15 mins,
+> this token automatically save into `sessionStorage`.
+
+   LoginRadiusSDK.senddirectmessage (to, subject, message, function (isposted) {
+        //just display to a html element, it return true/false
+        document.getElementById("isposted").innerHTML = JSON.stringify(isposted);
+    });
+    
+
 LoginRadius Post API
 ----
 
@@ -55,7 +69,7 @@ You can use this API to Post data to users social networks/email - Facebook, Twi
 > any of social network. The lifetime of LoginRadius token is 15 mins,
 > this token automatically save into `sessionStorage`.
 
-    LoginRadiusSDK.updatestatus (to, title, url, imageurl, status, caption, description,function (isposted) {
+    LoginRadiusSDK.updatestatus (to, title, url, imageurl, status, caption, description, function (isposted) {
         //just display to a html element, it return true/false
         document.getElementById("isposted").innerHTML = JSON.stringify(isposted);
     });
