@@ -1,179 +1,182 @@
 LoginRadius library for HTML5
-=====
-HTML5 library for the LoginRadius API. Get social authentication, user profile data and send messages using many social network and email clients such as Facebook, Google, Twitter, Yahoo, LinkedIn, etc.
-
-Installation
-----
- 1. **Font-end interface:** Add social login interface code from your LoginRadius user account to your webpage.
- 3. **Library set-up and installation:** Add the LoginRadius HTML5 SDK file into your project and follow the instructions to implement the SDK.
-
-**Steps to call the library:**
-
- 1. Add js file library onto your page
- 2. `onlogin` delegate call your login function
- 3. in your login function call, `getUserprofile` method to get user's profile data. visit the link for more information to get list of data: https://www.loginradius.com/product/user-profile-data
+=====================
 
 
-**Sample code for authentication and get basic profile data**
+HTML5 SDK Version 2 Implementation Steps
 
-    <script src="LoginRadiusSDK.1.0.0.js" type="text/javascript"></script>
-    <script type="text/javascript">
-         LoginRadiusSDK.onlogin = Successfullylogin;
-    
-         function Successfullylogin() {
-             LoginRadiusSDK.getUserprofile(function (data) {
-                    //just display to a html element 
-                    document.getElementById("profile").innerHTML = JSON.stringify(data);
-             });
-             return false;
-            };    
-    </script>
+----------
+Set Up
+----------
+- Add social login interface code from your LoginRadius user account to your webpage.
+- Copy SDK file to your project directory and follow the instructions to implement the SDK into your page from the “**Implementation**” section below.
 
-Advance features(for Paid customers only)
-====
+----------
 
-LoginRaidus Contacts API
-----
+Installation and Use
+----------
+ - Include SDK file in your code.
+> < script src=”LoginRadiusSDK.2.0.0.js” type=”text/javascript”></script>
 
-You can use this API to fetch contacts from users social networks/email clients - Facebook, Twitter, LinkedIn, Google, Yahoo.
+ - Set callback by passing Successfullylogin function in setLoginCallback function:-
+  > < script type=”text/javascript”>
+LoginRadiusSDK.setLoginCallback(Successfullylogin);
+function Successfullylogin(){
+// implement LoginRadius SDK API functions in this function
+}
+</script>
 
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
+    Call all LoginRadiusSDK API functions after calling of Successfullylogin function only. And be careful all API functions including  LoginRadiusCallback are asynchronous. 
 
-    LoginRadiusSDK.getUsercontact(function (contacts) {
-        //just display to a html element, it return JSON array
-        document.getElementById("contacts").innerHTML = JSON.stringify(contacts);
-    });
+ - **Userprofile API**: Call function getUserprofile() to get user profile data:-
+ 
+ > // get user profile data
+LoginRadiusSDK.getUserprofile( function( data) {  
+//here use data object
+ });
 
-LoginRadius Direct Message API
----
-You can use this API to send direct message to your contacts from users social networks - Twitter/LinkedIn.
-
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
-
-
-    LoginRadiusSDK.senddirectmessage (to, subject, message, function (isposted) {
-       //just display to a html element, it return true/false
-        document.getElementById("isposted").innerHTML = JSON.stringify(isposted);
-    });
-
-LoginRadius Post API
-----
-
-You can use this API to Post data to users social networks/email - Facebook, Twitter, LinkedIn.
-
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
-
-    LoginRadiusSDK.updatestatus (to, title, url, imageurl, status, caption, description, function (isposted) {
-        //just display to a html element, it return true/false
-        document.getElementById("isposted").innerHTML = JSON.stringify(isposted);
-    });
-
-Get Posts
-----
-
-You can use this API to get posts from users social network - Facebook
-
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
-
-    LoginRadiusSDK.getPosts(function (posts) {
-        //just display to a html element, it return JSON array
-        document.getElementById("posts").innerHTML = JSON.stringify(posts);
-    });
-
-Get Twitter Mentions
-----
-
-You can use this API to get mentions from users social network - Twitter.
-
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
-
-    LoginRadiusSDK.getMentions(function (mentions) {
-        //just display to a html element, it return JSON array
-        document.getElementById("mentions").innerHTML = JSON.stringify(mentions);
-    });
-
-Facebook Groups
-----
-
-You can use this API to get groups from users social network - Facebook.
-
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
-
-    LoginRadiusSDK.getGroups(function (groups) {
-        //just display to a html element, it return JSON array
-        document.getElementById("groups").innerHTML = JSON.stringify(groups);
-    });
+  Above data is normalized into LoginRadius' standard data format. 
+  
+  
+ -  **Album API**: Call function getPhotos() with Album ID as argument to get user’s photo data for that album. :-
+ > LoginRadiusSDK.getPhotos(albumid , function (photos){
+//here use photo data object
+});
 
 
-Get LinkedIn follow companies
-----
+ In the above code:-
+**albumid** is a valid album id, it return album photos.
 
-You can use this API to get followed companies list from users social network - LinkedIn.
+  Above data is normalized into LoginRadius' standard data format. 
+  
+ - 	**Checkin API**: Call function getCheckins() to get user’s check-in data:-
+  >LoginRadiusSDK.getCheckins( function ( checkins ){
+//here use checkins data object
+});
 
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
-
-    LoginRadiusSDK.getCompanies(function (companies) {
-        //just display to a html element, it return JSON array
-        document.getElementById("companies").innerHTML = JSON.stringify(companies);
-    });
+ Above data is normalized into LoginRadius' standard data format. 
+ 
+ - **Audio API**:	Call function getAudios() to get user’s audio files data:-
+  	 >LoginRadiusSDK.getAudios( function ( audios){
+//here use audio data object
+});
 
 
-Get Facebook events
-----
+ Above data is normalized into LoginRadius' standard data format. 
+ 
+ 
+ -  **Post Message API**: Call function postMessage()to send direct messages to user’s contacts:-
+  	 >LoginRadiusSDK.postMessage(to , subject , message,  function( postmessage){
+//here use success status
+});
 
-You can use this API to get events from users social network - Facebook.
+ In the above code:-
+**to** is the Social Id of the receiver.
+**subject** is the subject of the message.
+**message** is the message content.
 
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
+  Above data is normalized into LoginRadius' standard data format.
+ -  **Contacts API**:	Call function getContacts() to get user’s contacts data:-
+  	 >LoginRadiusSDK.getContacts(cursor , function( contacts){
+//here use contacts object
+});
 
-    LoginRadiusSDK.getEvents(function (events) {
-        //just display to a html element, it return JSON array
-        document.getElementById("events").innerHTML = JSON.stringify(events);
-    });
+ In the above code:-
+**cursor** is Cursor value for getting next records set( by default pass 0 value).
+
+
+  Above data is normalized into LoginRadius' standard data format.
+
+ -   **Mentions  API**:	Call function getMentions() to get user’s Twitter mention data:-
+ >LoginRadiusSDK.getMentions( function( mentions){
+//here use mentions object
+});
+
+ Above data is normalized into LoginRadius' standard data format.
+
+ -    **Following API**:  	Call function getFollowings() to get the information of the people, user is following on Twitter:-
+      >LoginRadiusSDK.getFollowings( function( followings){
+//here use followings object
+});
+
+
+ Above data is normalized into LoginRadius' standard data format.
+ - **Event API**: 	Call function getEvents() to get the event data:-
+     	    >LoginRadiusSDK.getEvents( function ( events){
+//here use events object
+});
 
 
 
-Get Status
-----
-
-You can use this API to get status messages from users social network - Facebook, Twitter, Linkedin.
-
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
-
-    LoginRadiusSDK.getsStatus(function (statuses) {
-        //just display to a html element, it return JSON array
-        document.getElementById("statuses").innerHTML = JSON.stringify(statuses);
-    });
+ Above data is normalized into LoginRadius' standard data format.
+ 
+ - 	 **Get Post API**:Call function getPosts() to get the posts data:-
+     	    >LoginRadiusSDK.getPosts( function ( posts){
+//here use posts object
+});
 
 
 
-Get TimeLine
-----
 
-You can use this API to get timeline feeds from users social network - Facebook.
+ Above data is normalized into LoginRadius' standard data format.
+ - 	**Company API**:	Call function getCompanies() to get the companies followed by user:-
+     	    >LoginRadiusSDK.getCompanies( function ( companies) {
+//here use companies object
+});
 
-> LoginRadius generate a unique session token, when user logs in with
-> any of social network. The lifetime of LoginRadius token is 15 mins,
-> this token automatically save into `sessionStorage`.
 
-    LoginRadiusSDK.getTimelineFeeds(function (timelinefeeds) {
-        //just display to a html element, it return JSON array
-        document.getElementById("timelinefeeds").innerHTML = JSON.stringify(timelinefeeds);
-    });
+
+
+
+ Above data is normalized into LoginRadius' standard data format.
+ - 		 **Status API**:	Call function getStatuses() to get the status data:-
+     	    >LoginRadiusSDK.getStatuses( function( statuses){
+//here use statuses object
+});
+
+ Above data is normalized into LoginRadius' standard data format.
+ 
+ - 	**Update Status API**:Call function postStatus() to post status message on user’s social profile:-
+
+ >LoginRadiusSDK.postStatus(title, url, imageUrl, status, caption, description, function( poststatus) {
+ //here use success status object
+ });
+
+ In the above code:-
+**title** is the title of the message (Optional)
+**url** is the web link of the status message (Optional)
+**imageUrl** is the image URL of the status message (Optional)
+**status** The status message text (Required)
+**caption** Caption of the status message (Optional)
+**description** Description of the status message (Optional)
+
+ Above data is normalized into LoginRadius' standard data format.
+
+ -     **Video API**:     Call function getVideos() to get the video files data:-
+         >LoginRadiusSDK.getVideos( function ( videos){
+//here use videos object
+});
+
+
+ Above data is normalized into LoginRadius' standard data format.
+ 
+ -      **Like API**:       	Call function getLikes() to get the likes data:-
+   >LoginRadiusSDK.getLikes( function ( likes){
+//here use likes object
+});
+
+
+ Above data is normalized into LoginRadius' standard data format.
+
+
+
+----------
+
+
+
+
+
+
+
+
+
+
