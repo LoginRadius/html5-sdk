@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Html5-sdk by LoginRadius</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Html5-sdk</h1>
+        <h2>LoginRadius HTML5/JS SDK help you to integrate Social Login such as Facebook, Google, Twitter and over 20 more on a HTML5 website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.</h2>
+        <a href="https://github.com/LoginRadius/HTML5-SDK" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="loginradius-sdk-library-for-html5js" class="anchor" href="#loginradius-sdk-library-for-html5js"><span class="octicon octicon-link"></span></a>LoginRadius SDK library for HTML5/JS</h1>
+
+<p>Get social authentication, user profile data and social invite using 30+ social networks and email clients such as Facebook, Google, Twitter, Yahoo, LinkedIn, etc.</p>
+
+<hr><h2>
+<a name="implementation-of-sdk" class="anchor" href="#implementation-of-sdk"><span class="octicon octicon-link"></span></a>Implementation of SDK</h2>
+
+<ul>
+<li>Add social login interface code (from your LoginRadius user account) to your webpage.</li>
+<li>Copy the SDK file to your project directory.</li>
+<li>
+<p>Include SDK file in your code.</p>
+
+<pre><code>&lt; script src="LoginRadiusSDK.2.0.0.js" type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+</li>
+<li>
+<p>Set callback by passing 'Successfullylogin' function in setLoginCallback function:</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+    LoginRadiusSDK.setLoginCallback(Successfullylogin);
+    function Successfullylogin(){
+    // implement LoginRadius SDK API functions in this function
+    }
+&lt;/script&gt;
+</code></pre>
+</li>
+</ul><p>Note: Call all LoginRadiusSDK API functions after calling of Successfullylogin function. Also, plesae make sure that all the API functions including LoginRadiusCallback are asynchronous. </p>
+
+<ul>
+<li>
+<p>Get the user's social profile data after login using UserProfile API</p>
+
+<p>Call function getUserprofile() to get user profile data:</p>
+
+<pre><code>// get user profile data
+LoginRadiusSDK.getUserprofile(function(data) {  
+//here use data object
+});
+</code></pre>
+
+<p>Tip: Profile data points will be normalized data as per <a href="https://github.com/guptadeepak/LoginRadius/blob/master/ReadMe-DataFeeds.md#loginradius-unified-social-api">LoginRadius' standard data format</a>.</p>
+
+<hr>
+<h2>
+<a name="advance-apis" class="anchor" href="#advance-apis"><span class="octicon octicon-link"></span></a>Advance APIs</h2>
+
+<p>These APIs are part of our subscription. Please check your account <a href="http://www.loginradius.com/packages"> subscription </a> before using these APIs.</p>
+</li>
+<li>
+<p><strong>Album API</strong>: Call function getPhotos() with Album ID as argument to get user's photo data for that album:</p>
+
+<pre><code>    LoginRadiusSDK.getPhotos(albumid , function (photos){
+    //here use photo data object
+    });
+</code></pre>
+
+<p>Tip: <strong>albumid</strong> is a valid album id, it return album photos.</p>
+</li>
+<li>
+<p><strong>Checkin API</strong>: Call function getCheckins() to get user's check-in data:</p>
+
+<pre><code>    LoginRadiusSDK.getCheckins(function (checkins){
+    //here use checkins data object
+    });
+</code></pre>
+</li>
+<li>
+<p><strong>Audio API</strong>:    Call function getAudios() to get user's audio files data:</p>
+
+<pre><code>    LoginRadiusSDK.getAudios(function (audios){
+    //here use audio data object
+    });
+</code></pre>
+</li>
+<li>
+<p><strong>Post Message API</strong>: Call function postMessage()to send direct messages to user's contacts:</p>
+
+<pre><code>    LoginRadiusSDK.postMessage(to , subject , message,  function( postmessage){
+    //here use success status
+    });
+</code></pre>
+
+<p>Tip:</p>
+
+<ul>
+<li>
+<strong>to</strong> is the Social Id of the receiver.</li>
+<li>
+<strong>subject</strong> is the subject of the message.</li>
+<li>
+<strong>message</strong> is the message content.</li>
+</ul>
+</li>
+<li>
+<p><strong>Contacts API</strong>:    Call function getContacts() to get user's contacts data:</p>
+
+<pre><code>        LoginRadiusSDK.getContacts(cursor , function(contacts){
+        //here use contacts object
+        });
+</code></pre>
+
+<p>Tip: <strong>cursor</strong> is the value for getting next records set (by default pass 0 value).</p>
+</li>
+<li>
+<p><strong>Mentions  API</strong>: Call function getMentions() to get user's Twitter mention data:</p>
+
+<pre><code>        LoginRadiusSDK.getMentions(function (mentions){
+        //here use mentions object
+        });
+</code></pre>
+</li>
+<li>
+<p><strong>Following API</strong>: Call function getFollowings() to get the information of the people, user is following on Twitter:</p>
+
+<pre><code>        LoginRadiusSDK.getFollowings(function (followings){
+        //here use followings object
+        });
+</code></pre>
+</li>
+<li>
+<p><strong>Event API</strong>: Call function getEvents() to get the event data:</p>
+
+<pre><code>        LoginRadiusSDK.getEvents(function (events){
+        //here use events object
+        });
+</code></pre>
+</li>
+<li>
+<p><strong>Get Post API</strong>:Call function getPosts() to get the posts data:</p>
+
+<pre><code>        LoginRadiusSDK.getPosts(function (posts){
+        //here use posts object
+        });
+</code></pre>
+</li>
+<li>
+<p><strong>Company API</strong>: Call function getCompanies() to get the companies followed by user:</p>
+
+<pre><code>        LoginRadiusSDK.getCompanies(function (companies) {
+        //here use companies object
+        });
+</code></pre>
+</li>
+<li>
+<p><strong>Status API</strong>: Call function getStatuses() to get the status data:</p>
+
+<pre><code>        LoginRadiusSDK.getStatuses(function(statuses){
+        //here use statuses object
+        });
+</code></pre>
+</li>
+<li>
+<p><strong>Update Status API</strong>: Call function postStatus() to post status message on user's social profile:</p>
+
+<pre><code>        LoginRadiusSDK.postStatus(title, url, imageUrl, status, caption, description, function(poststatus) {
+        //here use success status object
+        });
+</code></pre>
+
+<p>Tip:</p>
+
+<ul>
+<li>
+<strong>title</strong> is the title of the message (Optional)</li>
+<li>
+<strong>url</strong> is the web link of the status message (Optional)</li>
+<li>
+<strong>imageUrl</strong> is the image URL of the status message (Optional)</li>
+<li>
+<strong>status</strong> The status message text (Required)</li>
+<li>
+<strong>caption</strong> Caption of the status message (Optional)</li>
+<li>
+<strong>description</strong> Description of the status message (Optional)</li>
+</ul>
+</li>
+<li>
+<p><strong>Video API</strong>: Call function getVideos() to get the video files data:</p>
+
+<pre><code>        LoginRadiusSDK.getVideos(function (videos){
+        //here use videos object
+        });
+</code></pre>
+</li>
+<li>
+<p><strong>Like API</strong>: Call function getLikes() to get the likes data:</p>
+
+<pre><code>        LoginRadiusSDK.getLikes(function (likes){
+        //here use likes object
+        })
+</code></pre>
+
+<ul>
+<li>
+<strong>Assistance/help:</strong> If you have any questions or need assistance with the SDK, please contact our team at <a href="mailto:support@loginradius.com">support@loginradius.com</a>.</li>
+</ul>
+</li>
+</ul>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/LoginRadius/HTML5-SDK/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/LoginRadius/HTML5-SDK/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/LoginRadius/HTML5-SDK"></a> is maintained by <a href="https://github.com/LoginRadius">LoginRadius</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-22321867-5");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
