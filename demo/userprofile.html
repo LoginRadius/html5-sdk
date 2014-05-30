@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+
+	<!-- Your page content -->
+
+	<!-- Profile div to be filled with user profile data -->
+	<div id="profile"></div>
+
+	<!-- Place the div that contains the login interface somewhere on your page. -->
+	<div id="interfacecontainerdiv" class="interfacecontainerdiv"></div>
+
+	<!-- Scripts for LoginRadius can be placed before the closing body tag. -->
+	<script src="https://hub.loginradius.com/include/js/LoginRadius.js"></script>
+	<script src="LoginRadiusSDK.2.0.0.js"></script>
+
+	<!-- We have to initialize the login interface. You will need to supply your API key. -->
+	<script type="text/javascript">
+		var options={};
+		options.login=true;
+		LoginRadius_SocialLogin.util.ready(function () {
+			$ui = LoginRadius_SocialLogin.lr_login_settings;
+			$ui.interfacesize = "";
+			$ui.apikey = "{YOUR API KEY HERE}";
+			$ui.callback=window.location.href;
+			$ui.lrinterfacecontainer ="interfacecontainerdiv";
+			LoginRadius_SocialLogin.init(options);  }); 
+	</script>
+
+	<!-- We can register a callback on a successful login and then perform any API calls. -->
+	<script type="text/javascript">
+		LoginRadiusSDK.onlogin = SuccessLogin;
+		function SuccessLogin() {
+			LoginRadiusSDK.getUserprofile(function (data) {
+				document.getElementById("profile").innerHTML = JSON.stringify(data);
+			});
+		};
+	</script>
+</body> 
+</html>
