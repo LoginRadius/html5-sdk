@@ -35,7 +35,6 @@ Note: Call all LoginRadiusSDK API functions after calling of Successfullylogin f
  
 - Pass the callback parameter ($ui.callback) to LoginRadius login interface script
  
-        <script type="text/javascript">      
         var options = {}; 
         options.login = true; 
         LoginRadius_SocialLogin.util.ready(function () { 
@@ -45,8 +44,8 @@ Note: Call all LoginRadiusSDK API functions after calling of Successfullylogin f
              $ui.callback = window.location.href;  //Callback URL should be window.location.href
              $ui.lrinterfacecontainer = "interfacecontainerdiv"; 
              LoginRadius_SocialLogin.init(options); 
-	});
-        </script>
+        });
+
 
  ----------
  Advance APIs
