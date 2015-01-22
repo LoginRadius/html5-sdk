@@ -5,6 +5,7 @@ Get social authentication, user profile data and social invite using 30+ social 
 ----------
 Implementation of SDK
 ----------
+ - In order to utilize the HTML5/JS SDK you will either need to select HTML as your web technology on your Loginradius dashboard or include $ui.is_access_token=true; in your interface script.  
  - Add social login interface code (from your LoginRadius user account) to your webpage.
  - Copy the SDK file to your project directory.
  - Include SDK file in your code.
@@ -20,7 +21,7 @@ Implementation of SDK
             }
         </script>
 
-Note: Call all LoginRadiusSDK API functions after calling of Successfullylogin function. Also, plesae make sure that all the API functions including LoginRadiusCallback are asynchronous. 
+Note: Call all LoginRadiusSDK API functions after calling of Successfullylogin function. Also, please make sure that all the API functions including LoginRadiusCallback are asynchronous. 
 
 - Get the user's social profile data after login using UserProfile API
     
