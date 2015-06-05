@@ -32,7 +32,7 @@ Note: Call all LoginRadiusSDK API functions after calling of Successfullylogin f
         //here use data object
         });
 
-  Tip: Profile data points will be normalized data as per <a href="https://github.com/guptadeepak/LoginRadius/blob/master/ReadMe-DataFeeds.md#loginradius-unified-social-api">LoginRadius' standard data format</a>.
+  Tip: Profile data points will be normalized data as per <a href="https://secure.loginradius.com/datapoints">LoginRadius' standard data format</a>.
  
 - Pass the callback parameter ($ui.callback) to LoginRadius login interface script
  
