@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
+    <meta charset="UTF-8">
     <title>Html5-sdk by LoginRadius</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>Html5-sdk</h1>
-        <h2>LoginRadius HTML5/JS SDK help you to integrate Social Login such as Facebook, Google, Twitter and over 20 more on a HTML5 website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.</h2>
-        <a href="https://github.com/LoginRadius/HTML5-SDK" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+    <section class="page-header">
+      <h1 class="project-name">Html5-sdk</h1>
+      <h2 class="project-tagline">LoginRadius HTML5/JS SDK help you to integrate Social Login such as Facebook, Google, Twitter and over 20 more on a HTML5 website. The SDK also fetches user profile data and can be customized from your LoginRadius user account. Ex: social icon sets, login interface, provider settings, etc.</h2>
+      <a href="https://github.com/LoginRadius/html5-sdk" class="btn">View on GitHub</a>
+      <a href="https://github.com/LoginRadius/html5-sdk/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/LoginRadius/html5-sdk/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
-<a name="loginradius-sdk-library-for-html5js" class="anchor" href="#loginradius-sdk-library-for-html5js"><span class="octicon octicon-link"></span></a>LoginRadius SDK library for HTML5/JS</h1>
+    <section class="main-content">
+      <h1>
+<a id="loginradius-sdk-library-for-html5js" class="anchor" href="#loginradius-sdk-library-for-html5js" aria-hidden="true"><span class="octicon octicon-link"></span></a>LoginRadius SDK library for HTML5/JS</h1>
 
 <p>Get social authentication, user profile data and social invite using 30+ social networks and email clients such as Facebook, Google, Twitter, Yahoo, LinkedIn, etc.</p>
 
-<hr><h2>
-<a name="implementation-of-sdk" class="anchor" href="#implementation-of-sdk"><span class="octicon octicon-link"></span></a>Implementation of SDK</h2>
+<hr>
+
+<h2>
+<a id="implementation-of-sdk" class="anchor" href="#implementation-of-sdk" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation of SDK</h2>
 
 <ul>
+<li>In order to utilize the HTML5/JS SDK you will either need to select HTML as your web technology on your Loginradius dashboard or include $ui.is_access_token=true; in your interface script.<br>
+</li>
 <li>Add social login interface code (from your LoginRadius user account) to your webpage.</li>
 <li>Copy the SDK file to your project directory.</li>
 <li>
@@ -56,7 +51,9 @@
 &lt;/script&gt;
 </code></pre>
 </li>
-</ul><p>Note: Call all LoginRadiusSDK API functions after calling of Successfullylogin function. Also, plesae make sure that all the API functions including LoginRadiusCallback are asynchronous. </p>
+</ul>
+
+<p>Note: Call all LoginRadiusSDK API functions after calling of Successfullylogin function. Also, please make sure that all the API functions including LoginRadiusCallback are asynchronous. </p>
 
 <ul>
 <li>
@@ -70,11 +67,27 @@ LoginRadiusSDK.getUserprofile(function(data) {
 });
 </code></pre>
 
-<p>Tip: Profile data points will be normalized data as per <a href="https://github.com/guptadeepak/LoginRadius/blob/master/ReadMe-DataFeeds.md#loginradius-unified-social-api">LoginRadius' standard data format</a>.</p>
+<p>Tip: Profile data points will be normalized data as per <a href="https://secure.loginradius.com/datapoints">LoginRadius' standard data format</a>.</p>
+</li>
+<li>
+<p>Pass the callback parameter ($ui.callback) to LoginRadius login interface script</p>
+
+<pre><code>var options = {}; 
+options.login = true; 
+LoginRadius_SocialLogin.util.ready(function () { 
+     $ui = LoginRadius_SocialLogin.lr_login_settings; 
+     $ui.interfacesize = ""; 
+     $ui.apikey = " ​&lt;YOUR API KEY&gt;"; 
+     $ui.callback = window.location.href;  //Callback URL should be window.location.href
+     $ui.lrinterfacecontainer = "interfacecontainerdiv"; 
+     LoginRadius_SocialLogin.init(options); 
+});
+</code></pre>
 
 <hr>
+
 <h2>
-<a name="advance-apis" class="anchor" href="#advance-apis"><span class="octicon octicon-link"></span></a>Advance APIs</h2>
+<a id="advance-apis" class="anchor" href="#advance-apis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Advance APIs</h2>
 
 <p>These APIs are part of our subscription. Please check your account <a href="http://www.loginradius.com/packages"> subscription </a> before using these APIs.</p>
 </li>
@@ -228,24 +241,14 @@ LoginRadiusSDK.getUserprofile(function(data) {
 </ul>
 </li>
 </ul>
-        </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/LoginRadius/HTML5-SDK/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/LoginRadius/HTML5-SDK/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/LoginRadius/html5-sdk">Html5-sdk</a> is maintained by <a href="https://github.com/LoginRadius">LoginRadius</a>.</span>
 
-          <p class="repo-owner"><a href="https://github.com/LoginRadius/HTML5-SDK"></a> is maintained by <a href="https://github.com/LoginRadius">LoginRadius</a>.</p>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
 
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
+    </section>
 
             <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -260,3 +263,4 @@ LoginRadiusSDK.getUserprofile(function(data) {
 
   </body>
 </html>
+
