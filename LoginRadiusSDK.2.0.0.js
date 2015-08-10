@@ -1,14 +1,6 @@
-﻿
-var LoginRadiusSDK = (function () {
+﻿var LoginRadiusSDK = (function () {
     //for cross browser communication
     (function (a, b) { "use strict"; var c = function () { var b = function () { var b = a.location.hash ? a.location.hash.substr(1).split("&") : [], c = {}; for (var d = 0; d < b.length; d++) { var e = b[d].split("="); c[e[0]] = decodeURIComponent(e[1]) } return c }; var c = function (b) { var c = []; for (var d in b) { c.push(d + "=" + encodeURIComponent(b[d])) } a.location.hash = c.join("&") }; return { get: function (a) { var c = b(); if (a) { return c[a] } else { return c } }, add: function (a) { var d = b(); for (var e in a) { d[e] = a[e] } c(d) }, remove: function (a) { a = typeof a == "string" ? [a] : a; var d = b(); for (var e = 0; e < a.length; e++) { delete d[a[e]] } c(d) }, clear: function () { c({}) } } }(); a.hash = c })(window)
-
-    var lrToken = hash.get('lr-token');
-    if (lrToken) {
-        window.opener.loginradiushtml5passToken(lrToken);
-        document.write('<style type="text/css">body { display: none !important; } </style>');
-        window.close();
-    }
 
 
     var apiDomain = "api.loginradius.com";
@@ -41,6 +33,8 @@ var LoginRadiusSDK = (function () {
      * @param handle {CallbackHandler} callback handler, invoke after getting Userprofile from LoginRadius
      */
     module.getUserprofile = function (handle) {
+
+
         util.jsonpCall("https://" + apiDomain + "/api/v2/userprofile?access_token=" + module.getToken(), function (data) {
             handle(data);
         });
@@ -248,7 +242,8 @@ var LoginRadiusSDK = (function () {
      * @public
      */
     module.getToken = function () {
-        return sessionStorage.getItem(token);
+
+        return sessionStorage.getItem('LRTokenKey');
     };
 
 
@@ -264,7 +259,7 @@ var LoginRadiusSDK = (function () {
                 window[func] = undefined;
             }
             document.body.removeChild(js);
-        }
+        };
         var js = document.createElement('script');
         js.src = url.indexOf('?') != -1 ? url + '&callback=' + func : url + '?callback=' + func;
         js.type = "text/javascript";
@@ -296,19 +291,33 @@ var LoginRadiusSDK = (function () {
             return;
         }
         loginradiushtml5passToken(event.data);
-    };
-
-
+    }
 
     util.addEvent("message", window, receiveToken);
 
     window.loginradiushtml5passToken = function (tok) {
         sessionStorage.setItem(token, tok);
         module.isauthenticated = true;
-        module.onlogin();
+
+        var intVal = setInterval(function () {
+            if (module.onlogin) {
+                module.onlogin();
+                clearInterval(intVal);
+            }
+        }, 100);
+
     };
+
+    var lrToken = hash.get('lr-token');
+    if (lrToken) {
+        if (window.opener && window.opener.loginradiushtml5passToken) {
+            window.opener.loginradiushtml5passToken(lrToken);
+            document.write('<style type="text/css">body { display: none !important; } </style>');
+            window.close();
+        } else {
+            window.loginradiushtml5passToken(lrToken);
+        }
+    }
 
     return module;
 })();
-
-
