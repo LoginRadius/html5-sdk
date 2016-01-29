@@ -18,13 +18,13 @@ Please visit [here](http://www.loginradius.com/) for more information.
 
 ## Contents ##
 
-* [Demo Application](https://github.com/LoginRadius/html5-sdk/tree/master/demo): It contains a basic demo of Social Login and a full User Registration Demo.
-* [SDK](https://github.com/LoginRadius/html5-sdk/SDK): It contains all the sourced SDK for Social Login.
+* [Demo](https://github.com/LoginRadius/html5-sdk/tree/master/demo): It contains a basic demo of Social Login and a full User Registration Demo.
 
 
 ## Documentation
 
-* [Getting Started](http://apidocs.loginradius.com/docs/html5-js) - Everything you need to begin using the Social SDK.
+* [Social Login](http://apidocs.loginradius.com/docs/html5-js) - Everything you need to begin using the Social SDK.
 * [User Registration](http://apidocs.loginradius.com/docs/user-registration) - Everything you need to implement the full LoginRadius User Registration system including Social Login.
+
 
 General documentation regarding the HTML5 REST API and related flows can be found on the [LoginRadius API Documentations](http://apidocs.loginradius.com/) site. 
