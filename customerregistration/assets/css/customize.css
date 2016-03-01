@@ -63,16 +63,17 @@ a:hover {
   top: 0;
 }
 .lr-popup-message {
-  font-size: 16px;
-  line-height: 20px;
-  font-size: 1rem;
-  line-height: 1.25rem;
-  margin: 15px 30px;
-  /* padding: 10px 20px; */
-  /* border: 1px solid #29d; */
-  border-radius: 5px;
-  color: #555;
-  position: relative;
+    font-size: 16px;
+    line-height: 20px;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    margin: 15px 30px;
+    padding: 10px 20px !important;
+    border: 1px solid #29d !important;
+    border-radius: 5px;
+    color: #fff;
+    position: relative;
+    background: #29d;
 }
 
 @media only screen and (max-width: 790px) {
@@ -209,10 +210,11 @@ a:hover {
   font-size: 14px;
   line-height: 20px;
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: 20px;
   text-align: center;
   border-radius: 50%;
   color: #ccc;
+  font-weight: bold;
 }
 @media only screen and (max-width: 640px) {
   #lr-pop-group .lr-popup-container #lr-popup-body-container .lr-column {
