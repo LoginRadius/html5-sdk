@@ -21,7 +21,7 @@
     "description": "LoginRadius HTML5/JS SDK help you to integrate Social Login such as Facebook, Google, Twitter and over 20 more on a HTML5 website.",
     "license": "MIT",
     "ignore": [
-        "customerregistration",
+        "demo",
         "README.md",
         "bower.json",
         "README.md"
