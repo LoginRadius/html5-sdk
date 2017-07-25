@@ -1,7 +1,7 @@
 # LoginRadius HTML5 SDK
 
 
-![Home Image](https://d2lvlj7xfpldmj.cloudfront.net/support/github/banner-1544x500.png)
+![Home Image](http://docs.lrcontent.com/resources/github/banner-1544x500.png)
 
 ## Introduction ##
 
