@@ -21,26 +21,26 @@ function show_birthdate_date_block() {
     });
 }
 
-var raasoption = {};
-raasoption.apikey = lrThemeSettings.raasoption.apikey;
-raasoption.appname = lrThemeSettings.raasoption.appname;
-raasoption.emailVerificationUrl = lrThemeSettings.raasoption.emailVerificationUrl;
-raasoption.forgotPasswordUrl = lrThemeSettings.raasoption.forgotPasswordUrl;
+var commonOptions = {};
+commonOptions.apiKey = lrThemeSettings.raasoption.apikey;
+commonOptions.appName = lrThemeSettings.raasoption.appname;
+commonOptions.verificationUrl = lrThemeSettings.raasoption.verificationUrl;
+commonOptions.forgotPasswordUrl = lrThemeSettings.raasoption.forgotPasswordUrl;
+commonOptions.sott = lrThemeSettings.raasoption.sott;
 
-if (navigator.userAgent.match('CriOS')) {
-    raasoption.templatename = "loginradiuscustom_tmpl_IOS";
-} else {
-    raasoption.templatename = "loginradiuscustom_tmpl";
-}
-raasoption.hashTemplate = true;
-raasoption.V2Recaptcha = true;
+commonOptions.hashTemplate = true;
+commonOptions.V2Recaptcha = true;
+commonOptions.accessTokenResponse = true;
 
-LoginRadiusRaaS.$hooks.setProcessHook(function () {
+var LRObject = new LoginRadiusV2(commonOptions);
+
+
+LRObject.$hooks.register('startProcess',function () {
     lrThemeSettings.form_render_submit_hook.start();
-}, function () {
+});
+LRObject.$hooks.register('endProcess',function () {
     lrThemeSettings.form_render_submit_hook.end();
 });
-LoginRadiusRaaS.CustomInterface(".interfacecontainerdiv", raasoption);
 
 var LrRaasTheme = {
     init: function (body) {
@@ -217,96 +217,145 @@ var LrRaasTheme = {
         return div;
     },
     raasFormInject: function () {
-        $SL.util.ready(function () {
-            LoginRadiusRaaS.init(raasoption, 'registration', function (response) {
-                var message_header = document.getElementById('lr-register-popup-message');
-                message_header.innerHTML = lrThemeSettings.success_message.register;
-                LrRaasTheme.hideShowMessage('block');
-                $('input[type=text],input[type=password],select,textarea').val('');
-            }, function (errors) {
-                var message_header = document.getElementById('lr-register-popup-message');
-                message_header.innerHTML = (typeof errors[0].description != "undefined")?errors[0].description:errors[0].message;
-                LrRaasTheme.hideShowMessage('block');
-            }, "register-div");
+        var registration_options = {};
+        registration_options.container = 'register-div';
+        registration_options.onSuccess = function(response) {
+            var message_header = document.getElementById('lr-register-popup-message');
+            message_header.innerHTML = lrThemeSettings.success_message.register;
+            LrRaasTheme.hideShowMessage('block');
+            $('input[type=text],input[type=password],select,textarea').val('');
+        };
+        registration_options.onError = function(errors) {
+            var message_header = document.getElementById('lr-register-popup-message');
+            message_header.innerHTML = (typeof errors[0].Message != "undefined")?errors[0].Message:errors[0].Message;
+            LrRaasTheme.hideShowMessage('block');
+        };
 
-            LoginRadiusRaaS.init(raasoption, 'login', function (response) {
-                var message_header = document.getElementById('lr-login-popup-message');
-                message_header.innerHTML = lrThemeSettings.success_message.login;
-                LrRaasTheme.hideShowMessage('block');
-                $('input[type=text],input[type=password],select,textarea').val('');
-                lrThemeSettings.allowUserLogin(response);
-            }, function (errors) {
-                var message_header = document.getElementById('lr-login-popup-message');
-                message_header.innerHTML = (typeof errors[0].description != "undefined")?errors[0].description:errors[0].message;
-                LrRaasTheme.hideShowMessage('block');
-            }, "login-div");
+        var login_options = {};
+        login_options.container = 'login-div';
+        login_options.onSuccess = function (response) {
+            var message_header = document.getElementById('lr-login-popup-message');
+            message_header.innerHTML = lrThemeSettings.success_message.login;
+            LrRaasTheme.hideShowMessage('block');
+            $('input[type=text],input[type=password],select,textarea').val('');
+            lrThemeSettings.allowUserLogin(response);
+        };
+        login_options.onError = function(errors) {
+            console.log(errors);
+            var message_header = document.getElementById('lr-login-popup-message');
+            message_header.innerHTML = (typeof errors[0].Message != "undefined")?errors[0].Message:errors[0].Message;
+            LrRaasTheme.hideShowMessage('block');
+        };
 
-            LoginRadiusRaaS.init(raasoption, 'sociallogin', function (response) {
-                var social_message_header = document.getElementById('lr-social-popup-message');
-                if (document.getElementById('loginradius-raas-social-registration-emailid')) {
-                    if (social_message_header) {
-                        social_message_header.innerHTML = lrThemeSettings.success_message.register;
-                        LrRaasTheme.hideShowMessage('block');
-                    }
-                } else {
-                    if (social_message_header) {
-                        social_message_header.innerHTML = lrThemeSettings.success_message.social_login;
-                        LrRaasTheme.hideShowMessage('block');
-                    }
+        var sociallogin_options = {};
+
+
+        if (navigator.userAgent.match('CriOS')) {
+            sociallogin_options.templateName = "loginradiuscustom_tmpl_IOS";
+        } else {
+            sociallogin_options.templateName = "loginradiuscustom_tmpl";
+        }
+
+        sociallogin_options.onSuccess = function(response) {
+            var social_message_header = document.getElementById('lr-social-popup-message');
+            if (document.getElementById('loginradius-raas-social-registration-emailid')) {
+                if (social_message_header) {
+                    social_message_header.innerHTML = lrThemeSettings.success_message.register;
+                    LrRaasTheme.hideShowMessage('block');
                 }
-                $('input[type=text],input[type=password],select,textarea').val('');
-                lrThemeSettings.allowUserLogin(response);
-            }, function (errors) {
-                var social_message_header = document.getElementById('lr-login-popup-message');
-                social_message_header.innerHTML = (typeof errors[0].description != "undefined")?errors[0].description:errors[0].message;
-                var social_message_header = document.getElementById('lr-register-popup-message');
-                social_message_header.innerHTML = (typeof errors[0].description != "undefined")?errors[0].description:errors[0].message;
-                LrRaasTheme.hideShowMessage('block');
-            }, "sociallogin-container");
+            } else {
+                if (social_message_header) {
+                    social_message_header.innerHTML = lrThemeSettings.success_message.social_login;
+                    LrRaasTheme.hideShowMessage('block');
+                }
+            }
+            $('input[type=text],input[type=password],select,textarea').val('');
+            lrThemeSettings.allowUserLogin(response);
+        };
 
-            LoginRadiusRaaS.$hooks.socialLogin.onFormRender = function () {
+        sociallogin_options.onError = function(errors) {
+            var social_message_header = document.getElementById('lr-login-popup-message');
+            social_message_header.innerHTML = (typeof errors[0].Message != "undefined")?errors[0].Message:errors[0].Message;
+            var social_message_header = document.getElementById('lr-register-popup-message');
+            social_message_header.innerHTML = (typeof errors[0].Message != "undefined")?errors[0].Message:errors[0].Message;
+            LrRaasTheme.hideShowMessage('block');
+        };
+
+        sociallogin_options.container = "sociallogin-container";
+
+        var forgotpassword_options = {};
+        forgotpassword_options.container = "forgotpassword-div";
+        forgotpassword_options.onSuccess = function(response) {
+            var message_header = document.getElementById('lr-forgot-popup-message');
+            message_header.innerHTML = lrThemeSettings.success_message.forgot_password;
+            LrRaasTheme.hideShowMessage('block');
+            $('input[type=text],input[type=password],select,textarea').val('');
+        };
+
+        forgotpassword_options.onError = function(errors){
+            var message_header = document.getElementById('lr-forgot-popup-message');
+            message_header.innerHTML = (typeof errors[0].Message != "undefined")?errors[0].Message:errors[0].Message;
+            LrRaasTheme.hideShowMessage('block');
+        };
+
+        var verifyemail_options = {};
+        verifyemail_options.onSuccess = function(response) {
+            LrRaasTheme.showPopup('lr-login-container');
+            var message_header = document.getElementById('lr-login-popup-message');
+            message_header.innerHTML = lrThemeSettings.success_message.verify_email;
+            LrRaasTheme.hideShowMessage('block');
+            $('input[type=text],input[type=password],select,textarea').val('');
+        };
+        verifyemail_options.onError = function(errors) {
+            LrRaasTheme.showPopup('lr-login-container');
+            var message_header = document.getElementById('lr-login-popup-message');
+            message_header.innerHTML = (typeof errors[0].Message != "undefined")?errors[0].Message:errors[0].Message;
+            LrRaasTheme.hideShowMessage('block');
+        };
+
+        var reset_options = {};
+        reset_options.container = 'resetpassword-div';
+        reset_options.onSuccess = function(response) {
+            LrRaasTheme.showPopup('lr-login-container');
+            var message_header = document.getElementById('lr-login-popup-message');
+            message_header.innerHTML = lrThemeSettings.success_message.reset_password;
+            LrRaasTheme.hideShowMessage('block');
+        };
+
+        reset_options.onError = function(errors) {
+            var message_header = document.getElementById('lr-reset-popup-message');
+            message_header.innerHTML = (typeof errors[0].Message != "undefined")?errors[0].Message:errors[0].Message;
+            LrRaasTheme.hideShowMessage('block');
+        };
+
+
+
+
+        LRObject.util.ready(function () {
+            LRObject.init('registration', registration_options);
+
+            LRObject.init('login', login_options);
+
+            LRObject.customInterface(".interfacecontainerdiv", sociallogin_options);
+
+            LRObject.init('socialLogin', sociallogin_options);
+
+
+            LRObject.$hooks.register('socialLoginFormRender',function () {
                 LrRaasTheme.createPopup('social');
                 LrRaasTheme.showPopup('lr-social-container');
-            };
+            });
 
-            LoginRadiusRaaS.init(raasoption, 'forgotpassword', function (response) {
-                var message_header = document.getElementById('lr-forgot-popup-message');
-                message_header.innerHTML = lrThemeSettings.success_message.forgot_password;
-                LrRaasTheme.hideShowMessage('block');
-                $('input[type=text],input[type=password],select,textarea').val('');
-            }, function (errors) {
-                var message_header = document.getElementById('lr-forgot-popup-message');
-                message_header.innerHTML = (typeof errors[0].description != "undefined")?errors[0].description:errors[0].message;
-                LrRaasTheme.hideShowMessage('block');
-            }, "forgotpassword-div");
+            LRObject.init('forgotPassword', forgotpassword_options);
+
             show_birthdate_date_block();
             var params = LrRaasTheme.getUrlParameters();
             for (var key in params) {
-                if ('emailverification' == params[key]) {
-                    LoginRadiusRaaS.init(raasoption, 'emailverification', function (response) {
-                        LrRaasTheme.showPopup('lr-login-container');
-                        var message_header = document.getElementById('lr-login-popup-message');
-                        message_header.innerHTML = lrThemeSettings.success_message.verify_email;
-                        LrRaasTheme.hideShowMessage('block');
-                        $('input[type=text],input[type=password],select,textarea').val('');
-                    }, function (errors) {
-                        LrRaasTheme.showPopup('lr-login-container');
-                        var message_header = document.getElementById('lr-login-popup-message');
-                        message_header.innerHTML = (typeof errors[0].description != "undefined")?errors[0].description:errors[0].message;
-                        LrRaasTheme.hideShowMessage('block');
-                    });
-                } else if ('reset' == params[key]) {
+                if ('emailverification' === params[key]) {
+                    LRObject.init('verifyEmail', verifyemail_options);
+                } else if ('reset' === params[key]) {
                     LrRaasTheme.createPopup('reset');
-                    LoginRadiusRaaS.init(raasoption, 'resetpassword', function (response) {
-                        LrRaasTheme.showPopup('lr-login-container');
-                        var message_header = document.getElementById('lr-login-popup-message');
-                        message_header.innerHTML = lrThemeSettings.success_message.reset_password;
-                        LrRaasTheme.hideShowMessage('block');                        
-                    }, function (errors) {
-                        var message_header = document.getElementById('lr-reset-popup-message');
-                        message_header.innerHTML = (typeof errors[0].description != "undefined")?errors[0].description:errors[0].message;
-                        LrRaasTheme.hideShowMessage('block');
-                    }, "resetpassword-div");
+                    LRObject.init('resetPassword', reset_options);
 
                     LrRaasTheme.showPopup('lr-rp-container');
                 } else {
@@ -317,10 +366,10 @@ var LrRaasTheme = {
         });
     },
     appendFooter: function () {
-        var reg_form = document.getElementsByName('loginradius-raas-registration');
-        var login_form = document.getElementsByName('loginradius-raas-login');
-        var forgot_form = document.getElementsByName('loginradius-raas-forgotpassword');
-        var reset_form = document.getElementsByName('loginradius-raas-resetpassword');
+        var reg_form = document.getElementsByName('loginradius-registration');
+        var login_form = document.getElementsByName('loginradius-login');
+        var forgot_form = document.getElementsByName('loginradius-forgotpassword');
+        var reset_form = document.getElementsByName('loginradius-resetpassword');
 
         var registration_form_interval = setInterval(function () {
             if (document.readyState !== 'complete')
@@ -387,7 +436,7 @@ var LrRaasTheme = {
         document.getElementById('lr-pop-group').className = 'lr-show-layover';
     },
     resetAllPopups: function () {
-        var form_list = ['loginradius-raas-registration', 'loginradius-raas-login', 'loginradius-raas-forgotpassword'];
+        var form_list = ['loginradius-registration', 'loginradius-login', 'loginradius-forgotpassword'];
         for (var i = 0; i < form_list.length; i++) {
             var form = document.getElementsByName(form_list[i]);
             form[0].reset();
@@ -447,11 +496,17 @@ var LrRaasTheme = {
                 return false;
             });
         }
-        
+
         var logoutClass = document.getElementsByClassName("lr-raas-theme-logout");
         for (var i = 0; i < logoutClass.length; i++) {
             logoutClass[i].addEventListener("click", function (event) {
                 LrRaasTheme.closeAllPopups();
+                console.log("Hello");
+                var logout_options = {};
+                logout_options.onSuccess = function() {
+                    console.log("loggedout")
+                };
+                LRObject.init("logout", logout_options);
                 document.getElementById('logoutaction').style.display = "none";
                 document.getElementById('loginaction').style.display = "block";
                 document.getElementById("profileinformation").style.display = "none";
@@ -476,8 +531,10 @@ var LrRaasTheme = {
     }
 }
 $(document).ready(function () {
+
     LrRaasTheme.init();
     $('.lr-menu-buttons .lr-buttons').click(function () {
+
         var dataTab = $(this).attr("data-tab");
 
         $('.lr-menu-buttons .lr-buttons').removeClass('lr-tab-active');

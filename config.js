@@ -1,3 +1,12 @@
 var loginRadiusConfig = {};
-loginRadiusConfig.sitename = '<LOGINRADIUS SITE NAME>';
-loginRadiusConfig.apikey = '<LOGINRADIUS API KEY>';
+loginRadiusConfig.appName = '<<YOUR APP/SITE NAME>>>';
+loginRadiusConfig.apiKey = '<<YOUR API KEY>>';
+loginRadiusConfig.sott = '<<YOUR SOTT>>';
+
+
+var sdkoptions = {
+
+
+  "key": "<<YOUR API KEY (to initialize the SDK)>>"
+
+}

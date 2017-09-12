@@ -1,9 +1,10 @@
 var lrThemeSettings = {
     raasoption: {
-        apikey: loginRadiusConfig.apikey,
-        appname: loginRadiusConfig.sitename,
+        apikey: loginRadiusConfig.apiKey,
+        appname: loginRadiusConfig.appName,
+        sott: loginRadiusConfig.sott,
         forgotPasswordUrl: window.location.href.split("?")[0].split("#")[0],
-        emailVerificationUrl: window.location.href.split("?")[0].split("#")[0]
+        verificationUrl: window.location.href.split("?")[0].split("#")[0]
     },
     logo: {
         logo_image_path: "", /* Your logo image path, must be 28px * 28px */
@@ -28,11 +29,11 @@ var lrThemeSettings = {
     },
     allowUserLogin: function (response) {
         document.getElementById('fade').style.display = "block";
-        LoginRadiusSDK.getUserprofile(function (data) {
+        LoginRadiusSDK.getUserProfile(function (data) {
             if(data.EmailVerified == true){
                 document.getElementById('profiledata').innerHTML = getTable(data);
                 document.getElementById("profileinformation").style.display = "block";
-                document.getElementById("homeinformation").style.display = "none";                
+                document.getElementById("homeinformation").style.display = "none";
                 document.getElementById('logoutaction').style.display = "block";
                 document.getElementById('loginaction').style.display = "none";
                 LrRaasTheme.closeAllPopups();
@@ -46,7 +47,7 @@ var lrThemeSettings = {
                 message_header.innerHTML = lrThemeSettings.success_message.unverified_email;
                 LrRaasTheme.hideShowMessage('block');
             }
-            document.getElementById('fade').style.display = "none";            
+            document.getElementById('fade').style.display = "none";
         });
     },
     form_render_submit_hook: {
