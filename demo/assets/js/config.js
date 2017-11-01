@@ -10,3 +10,4 @@ var sdkoptions = {
   "key": "<<YOUR API KEY (to initialize the SDK)>>"
 
 }
+LoginRadiusSDK.initSDK(sdkoptions);

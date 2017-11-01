@@ -27,4 +27,4 @@ General documentation regarding the HTML5 REST API and related flows can be foun
 
 ## License
 
-This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more info.
+This project is licensed under the MIT license. See the [LICENSE](https://github.com/LoginRadius/sdk-html5-customer-identity/blob/master/LICENSE.md) file for more info.
