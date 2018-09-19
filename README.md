@@ -18,7 +18,7 @@ General documentation regarding the HTML5 REST API and related flows can be foun
 
 ## Contents 
 
-* [HTML5 SDK](https://github.com/LoginRadius/html5-sdk/blob/master/lib/LoginRadiusSDK.2.0.1.js): This repo contains the HTML5 SDK in the Lib folder.
+* [HTML5 SDK](https://github.com/LoginRadius/html5-sdk/blob/master/lib/): This repo contains the HTML5 SDK in the Lib folder.
 * [Demo](https://github.com/LoginRadius/html5-sdk/tree/master/demo): a basic demo of Social Login and a full Customer Registration Demo is also included in this repo that makes use of the HTML5 SDK.
 
 ## Author
