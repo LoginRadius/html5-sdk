@@ -1,7 +1,7 @@
 # LoginRadius HTML5 SDK Change Log
 
 # Version 11.0.0
-Released on **July 28, 2020**
+Released on **August 11, 2020**
 
 ## Enhancements:
  - Added a parameter isWeb in "RefreshAccessToken" API.
