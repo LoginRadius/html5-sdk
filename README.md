@@ -29,6 +29,9 @@ HTML5 SDK provides an approach to access LoginRadius service with only HTML and 
 >Disclaimer
 This library is meant to help you with a quick implementation of the LoginRadius platform and also to serve as a reference point for the LoginRadius API. Keep in mind that it is an open source library, which means you are free to download and customize the library functions based on your specific application needs.
 
+
+
+
 ## Installation
 In order to utilize the HTML5/JS SDK, you will need to initialize the SDK with your API Key:
 
@@ -46,7 +49,7 @@ LoginRadiusSDK.initSDK(sdkoptions);
 ## HTML
 
 ```
-<script src="LoginRadiusV2SDK.10.0.0.js" type="text/javascript"></script>
+<script src="LoginRadiusV2SDK.11.0.0.js" type="text/javascript"></script>
 ```
 
 ## Getting the Access Token
@@ -82,13 +85,14 @@ List of APIs in this Section:<br>
 * PUT : [Auth Reset Password by OTP](#ResetPasswordByEmailOTP-put-)<br>
 * PUT : [Auth Reset Password by OTP and UserName](#ResetPasswordByOTPAndUserName-put-)<br>
 * PUT : [Auth Change Password](#ChangePassword-put-)<br>
-* PUT : [Auth Link Social Identities](#LinkSocialIdentities-put-)<br>
 * PUT : [Auth Set or Change UserName](#SetOrChangeUserName-put-)<br>
 * PUT : [Auth Resend Email Verification](#AuthResendEmailVerification-put-)<br>
 * POST : [Auth Add Email](#AddEmail-post-)<br>
 * POST : [Auth Login by Email](#LoginByEmail-post-)<br>
 * POST : [Auth Login by Username](#LoginByUserName-post-)<br>
 * POST : [Auth Forgot Password](#ForgotPassword-post-)<br>
+* POST : [Auth Link Social Identities](#LinkSocialIdentities-post-)<br>
+* POST : [Auth Link Social Identities By Ping](#LinkSocialIdentitiesByPing-post-)<br>
 * POST : [Auth User Registration by Email](#UserRegistrationByEmail-post-)<br>
 * POST : [Auth User Registration By Captcha](#UserRegistrationByCaptcha-post-)<br>
 * GET : [Get Security Questions By Email](#GetSecurityQuestionsByEmail-get-)<br>
@@ -103,7 +107,6 @@ List of APIs in this Section:<br>
 * GET : [Auth Delete Account](#DeleteAccountByDeleteToken-get-)<br>
 * GET : [Auth Check Email Availability](#CheckEmailAvailability-get-)<br>
 * GET : [Auth Verify Email](#VerifyEmail-get-)<br>
-* GET : [Auth Social Identity](#GetSocialIdentity-get-)<br>
 * GET : [Auth Check UserName Availability](#CheckUserNameAvailability-get-)<br>
 * GET : [Auth Privacy Policy Accept](#AcceptPrivacyPolicy-get-)<br>
 * GET : [Auth Privacy Policy History By Access Token](#GetPrivacyPolicyHistoryByAccessToken-get-)<br>
@@ -395,30 +398,6 @@ var oldPassword = "<oldPassword>"; //Required
   
   
  
-<h6 id="LinkSocialIdentities-put-"> Auth Link Social Identities (PUT)</h6>
- This API is used to link up a social provider account with the specified account based on the access token and the social providers user access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities)
-
- 
- 
-
- ```
-
-var accessToken = "<accessToken>"; //Required
-var candidateToken = "<candidateToken>"; //Required
-
- LoginRadiusSDK.authenticationApi.linkSocialIdentities(accessToken, candidateToken, function(error, data){
-    if(error){
-      console.log(error);
-	  return;
-	}
-	console.log(data);
- });
-
- ```
- 
-  
-  
- 
 <h6 id="SetOrChangeUserName-put-"> Auth Set or Change UserName (PUT)</h6>
  This API is used to set or change UserName by access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-set-or-change-user-name/)
 
@@ -570,6 +549,54 @@ var resetPasswordUrl = "<resetPasswordUrl>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
 
  LoginRadiusSDK.authenticationApi.forgotPassword(email, resetPasswordUrl, emailTemplate, function(error, data){
+    if(error){
+      console.log(error);
+	  return;
+	}
+	console.log(data);
+ });
+
+ ```
+ 
+  
+  
+ 
+<h6 id="LinkSocialIdentities-post-"> Auth Link Social Identities (POST)</h6>
+ This API is used to link up a social provider account with an existing LoginRadius account on the basis of access token and the social providers user access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+var candidateToken = "<candidateToken>"; //Required
+
+ LoginRadiusSDK.authenticationApi.linkSocialIdentities(accessToken, candidateToken, function(error, data){
+    if(error){
+      console.log(error);
+	  return;
+	}
+	console.log(data);
+ });
+
+ ```
+ 
+  
+  
+ 
+<h6 id="LinkSocialIdentitiesByPing-post-"> Auth Link Social Identities By Ping (POST)</h6>
+ This API is used to link up a social provider account with an existing LoginRadius account on the basis of ping and the social providers user access token.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-link-social-identities-by-ping)
+
+ 
+ 
+
+ ```
+
+var accessToken = "<accessToken>"; //Required
+var clientGuid = "<clientGuid>"; //Required
+
+ LoginRadiusSDK.authenticationApi.linkSocialIdentitiesByPing(accessToken, clientGuid, function(error, data){
     if(error){
       console.log(error);
 	  return;
@@ -929,30 +956,6 @@ var url = "<url>"; //Optional
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
 
  LoginRadiusSDK.authenticationApi.verifyEmail(verificationToken, fields, url, welcomeEmailTemplate, function(error, data){
-    if(error){
-      console.log(error);
-	  return;
-	}
-	console.log(data);
- });
-
- ```
- 
-  
-  
- 
-<h6 id="GetSocialIdentity-get-"> Auth Social Identity (GET)</h6>
- This API is called just after account linking API and it prevents the raas profile of the second account from getting created.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-social-identity)
-
- 
- 
-
- ```
-
-var accessToken = "<accessToken>"; //Required
-var fields = null; //Optional
-
- LoginRadiusSDK.authenticationApi.getSocialIdentity(accessToken, fields, function(error, data){
     if(error){
       console.log(error);
 	  return;
@@ -4096,6 +4099,8 @@ List of APIs in this Section:<br>
 * GET : [Access Token using google JWT token for Native Mobile Login](#GetAccessTokenByGoogleJWTAccessToken-get-)<br>
 * GET : [Access Token via Linkedin Token](#GetAccessTokenByLinkedinAccessToken-get-)<br>
 * GET : [Get Access Token By Foursquare Access Token](#GetAccessTokenByFoursquareAccessToken-get-)<br>
+* GET : [Access Token via Apple Id Code](#GetAccessTokenByAppleIdCode-get-)<br>
+* GET : [Access Token via WeChat Code](#GetAccessTokenByWeChatCode-get-)<br>
 * GET : [Access Token via Vkontakte Token](#GetAccessTokenByVkontakteAccessToken-get-)<br>
 * GET : [Access Token via Google AuthCode](#GetAccessTokenByGoogleAuthCode-get-)<br>
 
@@ -4110,8 +4115,9 @@ List of APIs in this Section:<br>
  ```
 
 var fbAccessToken = "<fbAccessToken>"; //Required
+var socialAppName = "<socialAppName>"; //Optional
 
- LoginRadiusSDK.nativeSocialApi.getAccessTokenByFacebookAccessToken(fbAccessToken, function(error, data){
+ LoginRadiusSDK.nativeSocialApi.getAccessTokenByFacebookAccessToken(fbAccessToken, socialAppName, function(error, data){
     if(error){
       console.log(error);
 	  return;
@@ -4134,8 +4140,9 @@ var fbAccessToken = "<fbAccessToken>"; //Required
 
 var twAccessToken = "<twAccessToken>"; //Required
 var twTokenSecret = "<twTokenSecret>"; //Required
+var socialAppName = "<socialAppName>"; //Optional
 
- LoginRadiusSDK.nativeSocialApi.getAccessTokenByTwitterAccessToken(twAccessToken, twTokenSecret, function(error, data){
+ LoginRadiusSDK.nativeSocialApi.getAccessTokenByTwitterAccessToken(twAccessToken, twTokenSecret, socialAppName, function(error, data){
     if(error){
       console.log(error);
 	  return;
@@ -4159,8 +4166,9 @@ var twTokenSecret = "<twTokenSecret>"; //Required
 var googleAccessToken = "<googleAccessToken>"; //Required
 var clientId = "<clientId>"; //Optional
 var refreshToken = "<refreshToken>"; //Optional
+var socialAppName = "<socialAppName>"; //Optional
 
- LoginRadiusSDK.nativeSocialApi.getAccessTokenByGoogleAccessToken(googleAccessToken, clientId, refreshToken, function(error, data){
+ LoginRadiusSDK.nativeSocialApi.getAccessTokenByGoogleAccessToken(googleAccessToken, clientId, refreshToken, socialAppName, function(error, data){
     if(error){
       console.log(error);
 	  return;
@@ -4205,8 +4213,9 @@ var idToken = "<idToken>"; //Required
  ```
 
 var lnAccessToken = "<lnAccessToken>"; //Required
+var socialAppName = "<socialAppName>"; //Optional
 
- LoginRadiusSDK.nativeSocialApi.getAccessTokenByLinkedinAccessToken(lnAccessToken, function(error, data){
+ LoginRadiusSDK.nativeSocialApi.getAccessTokenByLinkedinAccessToken(lnAccessToken, socialAppName, function(error, data){
     if(error){
       console.log(error);
 	  return;
@@ -4230,6 +4239,53 @@ var lnAccessToken = "<lnAccessToken>"; //Required
 var fsAccessToken = "<fsAccessToken>"; //Required
 
  LoginRadiusSDK.nativeSocialApi.getAccessTokenByFoursquareAccessToken(fsAccessToken, function(error, data){
+    if(error){
+      console.log(error);
+	  return;
+	}
+	console.log(data);
+ });
+
+ ```
+ 
+  
+  
+ 
+<h6 id="GetAccessTokenByAppleIdCode-get-"> Access Token via Apple Id Code (GET)</h6>
+ The API is used to get LoginRadius access token by sending a valid Apple ID OAuth Code. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-apple-id-code)
+
+ 
+ 
+
+ ```
+
+var code = "<code>"; //Required
+var socialAppName = "<socialAppName>"; //Optional
+
+ LoginRadiusSDK.nativeSocialApi.getAccessTokenByAppleIdCode(code, socialAppName, function(error, data){
+    if(error){
+      console.log(error);
+	  return;
+	}
+	console.log(data);
+ });
+
+ ```
+ 
+  
+  
+ 
+<h6 id="GetAccessTokenByWeChatCode-get-"> Access Token via WeChat Code (GET)</h6>
+ This API is used to retrieve a LoginRadius access token by passing in a valid WeChat OAuth Code.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-wechat-code)
+
+ 
+ 
+
+ ```
+
+var code = "<code>"; //Required
+
+ LoginRadiusSDK.nativeSocialApi.getAccessTokenByWeChatCode(code, function(error, data){
     if(error){
       console.log(error);
 	  return;
@@ -4274,8 +4330,9 @@ var vkAccessToken = "<vkAccessToken>"; //Required
  ```
 
 var googleAuthcode = "<googleAuthcode>"; //Required
+var socialAppName = "<socialAppName>"; //Optional
 
- LoginRadiusSDK.nativeSocialApi.getAccessTokenByGoogleAuthCode(googleAuthcode, function(error, data){
+ LoginRadiusSDK.nativeSocialApi.getAccessTokenByGoogleAuthCode(googleAuthcode, socialAppName, function(error, data){
     if(error){
       console.log(error);
 	  return;
