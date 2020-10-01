@@ -207,7 +207,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
   
  
 <h6 id="ResetPasswordBySecurityAnswerAndEmail-put-"> Auth Reset Password by Security Answer and Email (PUT)</h6>
- This API is used to reset password for the specified account by security question  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-email)
+ This API is used to reset password for the specified account by security question.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-email)
 
  
  
@@ -263,7 +263,7 @@ var resetPasswordBySecurityAnswerAndPhoneModel ={
   
  
 <h6 id="ResetPasswordBySecurityAnswerAndUserName-put-"> Auth Reset Password by Security Answer and UserName (PUT)</h6>
- This API is used to reset password for the specified account by security question  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-username)
+ This API is used to reset password for the specified account by security question. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-username)
 
  
  
@@ -346,7 +346,7 @@ var resetPasswordByEmailAndOtpModel ={
   
  
 <h6 id="ResetPasswordByOTPAndUserName-put-"> Auth Reset Password by OTP and UserName (PUT)</h6>
- This API is used to set a new password for the specified account if you are using the username as the unique identifier in your workflow  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-otp-and-username/)
+ This API is used to set a new password for the specified account if you are using the username as the unique identifier in your workflow. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-reset-password-by-otp-and-username/)
 
  
  
@@ -374,7 +374,7 @@ var resetPasswordByUserNameModel ={
   
  
 <h6 id="ChangePassword-put-"> Auth Change Password (PUT)</h6>
- This API is used to change the accounts password based on the previous password  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-change-password)
+ This API is used to change the accounts password based on the previous password. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-change-password)
 
  
  
@@ -475,7 +475,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
   
  
 <h6 id="LoginByEmail-post-"> Auth Login by Email (POST)</h6>
- This API retrieves a copy of the user data based on the Email  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-login-by-email)
+ This API retrieves a copy of the user data based on the Email.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-login-by-email)
 
  
  
@@ -506,7 +506,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
   
  
 <h6 id="LoginByUserName-post-"> Auth Login by Username (POST)</h6>
- This API retrieves a copy of the user data based on the Username  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-login-by-username)
+ This API retrieves a copy of the user data based on the Username. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/authentication/auth-login-by-username)
 
  
  
