@@ -1,6 +1,6 @@
 # LoginRadius HTML5 SDK
 
-Customer Identity public repo for the HTML5 SDK, based on LoginRadius V2 APIs.
+Customer Identity public repository for the HTML5 SDK, based on LoginRadius V2 APIs.
 
 ![Home Image](http://docs.lrcontent.com/resources/github/banner-1544x500.png)
 
