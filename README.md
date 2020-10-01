@@ -1,4 +1,4 @@
-# LoginRadius HTML5 SDK
+# LoginRadius SDK Coded With HTML5
 
 Customer Identity public repo for the HTML5 SDK, based on LoginRadius V2 APIs.
 
