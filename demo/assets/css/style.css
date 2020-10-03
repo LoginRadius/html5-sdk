@@ -103,6 +103,12 @@ hr {
     background-color: #eee;
     width: 400px;
     padding: 30px 20px 30px 20px;
+    margin: 0 auto;
+}
+
+.container-elements{
+    display: flex;
+    justify-content: center;
 }
 
 .vertical-menu {
