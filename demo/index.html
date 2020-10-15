@@ -10,7 +10,12 @@
         <script src="assets/js/options.js"></script>  
         <script src="assets/js/index.js"></script>  
         <script src="assets/js/sociallogin.js"></script> 
-        <script src="assets/js/emailverification.js"></script> 
+        <script src="assets/js/emailverification.js"></script>
+        <style>
+            .space{
+                height:30px;
+            }
+        </style>
     </head>
     <body>
         <div class="section-menu">
@@ -56,8 +61,8 @@
 
                     <center><table>
                             <tr><th colspan="2">Multi-Factor Login</th></tr>
-                            <tr><td>Email Address: </td><td><input name="email" type='text' id='minimal-mfalogin-email'/></td></tr>
-                            <tr><td>Password: </td><td><input name="password" type='password' id='minimal-mfalogin-password'/></td></tr>
+                            <tr><td>Email Address: </td><td><input name="email" type='text' id='minimal-mfalogin-email' placeholder="Enter Your Email"/></td></tr>
+                            <tr><td>Password: </td><td><input name="password" type='password' id='minimal-mfalogin-password' placeholder="Enter Your Password"/></td></tr>
                         </table>
                     </center>
                     <button id="btn-minimal-mfalogin-next">Next</button><br/>
@@ -85,7 +90,7 @@
                         <div id="interfacecontainerdiv" class="interfacecontainerdiv"></div>
                         <div id="sociallogin-container"></div>
 
-                    </div><br></br><br></br><br></br>
+                    </div><div class="space"></div>
             </center>
         </div>
     </body>
