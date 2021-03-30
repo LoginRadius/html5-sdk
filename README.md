@@ -42,6 +42,14 @@ var sdkoptions = {
 
 LoginRadiusSDK.initSDK(sdkoptions);
 ```
+### X-Origin-IP
+LoginRadius allows you to add X-Origin-IP in your headers and it determines the IP address of the client's request,this can also be useful to overcome analytics discrepancies where the analytics depend on header data.
+
+```
+var sdkoptions = {
+  "originIp": "{{CLIENT IP}}"
+}
+```
 
 ## Importing Required Libraries
 - Download the SDK from [Github](https://github.com/LoginRadius/HTML5-SDK).
@@ -49,7 +57,7 @@ LoginRadiusSDK.initSDK(sdkoptions);
 ## HTML
 
 ```
-<script src="LoginRadiusV2SDK.11.0.0.js" type="text/javascript"></script>
+<script src="LoginRadiusV2SDK.11.1.0.js" type="text/javascript"></script>
 ```
 
 ## Getting the Access Token
@@ -105,6 +113,7 @@ List of APIs in this Section:<br>
 * GET : [Auth Read all Profiles by Token](#GetProfileByAccessToken-get-)<br>
 * GET : [Auth Send Welcome Email](#SendWelcomeEmail-get-)<br>
 * GET : [Auth Delete Account](#DeleteAccountByDeleteToken-get-)<br>
+* GET : [Get Profile By Ping](#GetProfileByPing-get-)<br>
 * GET : [Auth Check Email Availability](#CheckEmailAvailability-get-)<br>
 * GET : [Auth Verify Email](#VerifyEmail-get-)<br>
 * GET : [Auth Check UserName Availability](#CheckUserNameAvailability-get-)<br>
@@ -916,7 +925,29 @@ var deletetoken = "<deletetoken>"; //Required
 
  ```
  
-  
+<h6 id="GetProfileByPing-get-">Get Profile By Ping (GET)</h6>
+This API is used to get a user's profile using the clientGuid parameter if no callback feature enabled. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/social-login-by-ping/)
+
+ 
+ 
+
+ ```
+
+var clientGuid = "<clientGuid>"; //Required
+var emailTemplate = "<emailTemplate>"; //Optional
+var fields = null; //Optional
+var verificationUrl = "<verificationUrl>"; //Optional
+var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
+
+ LoginRadiusSDK.authenticationApi.getProfileByPing(clientGuid, emailTemplate, fields, verificationUrl, welcomeEmailTemplate, function(error, data){
+    if(error){
+      console.log(error);
+	  return;
+	}
+	console.log(data);
+ });
+
+ ```
   
  
 <h6 id="CheckEmailAvailability-get-"> Auth Check Email Availability (GET)</h6>
@@ -3701,6 +3732,8 @@ var fields = null; //Optional
 List of APIs in this Section:<br>
 
 * PUT : [Passwordless Login Phone Verification](#PasswordlessLoginPhoneVerification-put-)<br>
+* POST : [Passwordless Login Verification By Email And OTP](#PasswordlessLoginVerificationByEmailAndOTP-post-)<br>
+* POST : [Passwordless Login Verification By User Name And OTP](#PasswordlessLoginVerificationByUserNameAndOTP-post-)<br>
 * GET : [Passwordless Login by Phone](#PasswordlessLoginByPhone-get-)<br>
 * GET : [Passwordless Login By Email](#PasswordlessLoginByEmail-get-)<br>
 * GET : [Passwordless Login By UserName](#PasswordlessLoginByUserName-get-)<br>
@@ -3734,9 +3767,58 @@ var smsTemplate = "<smsTemplate>"; //Optional
 
  ```
  
-  
-  
+<h6 id="PasswordlessLoginVerificationByEmailAndOTP-post-">Passwordless Login Verification By Email And OTP (POST)</h6>
+This API is used to verify the otp sent to the email when doing a passwordless login. [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/passwordless-login/passwordless-login-verify-by-email-and-otp/)
+
  
+ 
+
+ ```
+
+
+var passwordLessLoginByEmailAndOtpModel ={ 
+ "email": "<email>",
+ "otp": "<otp>",
+ "welcomeemailtemplate": "<welcome_email_template>"
+  };  //Required
+
+var fields = null; //Optional
+
+ LoginRadiusSDK.passwordLessLoginApi.passwordlessLoginVerificationByEmailAndOTP(passwordLessLoginByEmailAndOtpModel, fields, function(error, data){
+    if(error){
+      console.log(error);
+	  return;
+	}
+	console.log(data);
+ });
+
+ ``` 
+  
+<h6 id="PasswordlessLoginVerificationByUserNameAndOTP-post-">Passwordless Login Verification By User Name And OTP (POST)</h6>
+This API is used to verify the otp sent to the email when doing a passwordless   [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/passwordless-login/passwordless-login-verify-by-username-and-otp/)
+
+ 
+ 
+
+ ```
+
+var passwordLessLoginByUserNameAndOtpModel ={ 
+ "username": "<email>",
+ "otp": "<otp>",
+ "welcomeemailtemplate": "<welcome_email_template>"
+  };  //Required
+var fields = null; //Optional
+
+ LoginRadiusSDK.passwordLessLoginApi.passwordlessLoginVerificationByUserNameAndOTP(passwordLessLoginByUserNameAndOtpModel, fields, function(error, data){
+    if(error){
+      console.log(error);
+	  return;
+	}
+	console.log(data);
+ });
+
+ ```
+
 <h6 id="PasswordlessLoginByPhone-get-"> Passwordless Login by Phone (GET)</h6>
  API can be used to send a One-time Passcode (OTP) provided that the account has a verified PhoneID  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/passwordless-login/passwordless-login-by-phone)
 

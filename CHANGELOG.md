@@ -1,5 +1,20 @@
 # LoginRadius HTML5 SDK Change Log
 
+
+# Version 11.1.0
+Released on **March 30, 2021**
+
+## Enhancements:
+- Added X-Origin-IP header support.
+- Added 429 error code handling for "Too Many Request in a particular time frame".
+- Fixed Delete API issue
+
+## Added new multiple APIs for better user experience:
+- Get Profile By Ping.
+- Passwordless Login Verification By Email And OTP.
+- Passwordless Login Verification By User Name And OTP.
+
+
 # Version 11.0.0
 Released on **August 11, 2020**
 
