@@ -1,5 +1,11 @@
 # LoginRadius HTML5 SDK Change Log
 
+# Version 11.1.1
+Released on **June 11, 2021**
+
+## Bug Fixed
+- fixed API Key Validation issue
+
 
 # Version 11.1.0
 Released on **March 30, 2021**
@@ -9,6 +15,7 @@ Released on **March 30, 2021**
 - Added 429 error code handling for "Too Many Request in a particular time frame".
 - Fixed Delete API issue
 
+
 ## Added new multiple APIs for better user experience:
 - Get Profile By Ping.
 - Passwordless Login Verification By Email And OTP.
@@ -16,19 +23,19 @@ Released on **March 30, 2021**
 
 
 # Version 11.0.0
-Released on **August 11, 2020**
+Released on **July 28, 2020**
 
 ## Enhancements:
- - Added a parameter isWeb in "RefreshAccessToken" API.
- - Added a parameter SocialAppName in "getAccessTokenByFacebookAccessToken, getAccessTokenByTwitterAccessToken,
-   getAccessTokenByGoogleAccessToken, getAccessTokenByLinkedinAccessToken, getAccessTokenByAppleIdCode, 
-   getAccessTokenByGoogleAuthCode" Native Social login APIs.
+- Added a parameter isWeb in "RefreshAccessToken" API.
+- Added a parameter SocialAppName in "getAccessTokenByFacebookAccessToken,  getAccessTokenByTwitterAccessToken,
+  getAccessTokenByGoogleAccessToken, getAccessTokenByLinkedinAccessToken, getAccessTokenByAppleIdCode, 
+  getAccessTokenByGoogleAuthCode" Native Social login APIs.
 
 ## Added new multiple APIs for better user experience:
- - Added linkSocialIdentites(POST) API.
- - Added linkSocialIdentitiesByPing(POST) API.
- - Added getAccessTokenByAppleIdCode API.
- - Added getAccessTokenByWeChatCode API.
+- Added linkSocialIdentites(POST) API.
+- Added linkSocialIdentitiesByPing(POST) API.
+- Added getAccessTokenByAppleIdCode API.
+- Added getAccessTokenByWeChatCode API.
 
 ## Removed APIs:
  - linkSocialIdentity API(PUT)

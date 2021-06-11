@@ -4375,10 +4375,7 @@ var LoginRadiusSDK = (function() {
    */
   util.xhttpCall = function(method, path, queryParameters, model, handle) {
     if (config.apiKey) {
-      if (!util._uuidFormat.test(config.apiKey)) {
-        util.log('apiKey is not in valid guid format.');
-        handle(errorMsgs[1000])
-      } else {
+     
         if(path.indexOf('/v2/access_token/') != -1){
           queryParameters.key = config.apiKey;
         }else{
@@ -4429,7 +4426,7 @@ var LoginRadiusSDK = (function() {
         };
         xhttpcall.send(JSON.stringify(model));
       }
-    }else{
+    else{
       util.log('Please set the LoginRadius ApiKey');
       handle(errorMsgs[1000])
     }
