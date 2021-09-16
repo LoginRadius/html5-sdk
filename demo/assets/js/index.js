@@ -28,8 +28,8 @@ function getProfile(access_token, profile_uid) {
     localStorage.setItem('LRUserID', profile_uid);
 
     $("#lr-loading").show();
-    LoginRadiusSDK.authenticationApi.getProfileByAccessToken(access_token, "", function(error, data) {
-        
+    LoginRadiusSDK.authenticationApi.getProfileByAccessToken(access_token, null,
+        null, null, null, function (error, data) {
         $("#lr-loading").hide();
         if(error){
             $("#minimal-login-errorMsg").text(error.Message);
@@ -124,12 +124,13 @@ function handleMFALogin() {
         var password = $("#minimal-mfalogin-password").val();
         var emailTemplate = "";
         var fields = "";
+        var emailTemplate2FA="";
         var loginUrl = "";
         var smsTemplate = "";
         var smsTemplate2FA = "";
         var verificationUrl = "";
 
-        LoginRadiusSDK.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl, function(error, data){
+        LoginRadiusSDK.multiFactorAuthenticationApi.mfaLoginByEmail(email, password, emailTemplate, emailTemplate2FA, fields, loginUrl, smsTemplate, smsTemplate2FA, verificationUrl, function(error, data){
             $("#lr-loading").hide();
             if(error){                
                 $("#minimal-mfalogin-errorMsg").text(error.Message);
@@ -172,9 +173,12 @@ function validateGoogleCode(secondFactorAuthenticationToken) {
     $("#lr-loading").show();
     var googleAuthenticatorCode = $("#minimal-mfalogin-googlecode").val();
     var fields = "";
-    var smsTemplate2FA = "";
-    LoginRadiusSDK.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthenticatorCode, secondFactorAuthenticationToken, fields, smsTemplate2FA, function(error, data){
-        $("#lr-loading").hide();
+    var rbaBrowserEmailTemplate = "";
+    var rbaCityEmailTemplate = "";
+    var rbaCountryEmailTemplate = "";
+    var rbaIpEmailTemplate = "";
+    LoginRadiusSDK.multiFactorAuthenticationApi.mfaValidateGoogleAuthCode(googleAuthenticatorCode, secondFactorAuthenticationToken, fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate, function (error, data) {
+          $("#lr-loading").hide();
         $("#minimal-mfalogin-errorMsg").text("");
 
         if (error) {

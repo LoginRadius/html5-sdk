@@ -8,8 +8,8 @@ $(function () {
 function getProfileByUid() {
     $("#lr-loading").show();
     var token = LoginRadiusSDK.getToken();
-    LoginRadiusSDK.authenticationApi.getProfileByAccessToken(token, "", function (error, data) {
-		
+    LoginRadiusSDK.authenticationApi.getProfileByAccessToken(token, null,
+        null, null, null, function (error, data) {
         $("#lr-loading").hide();
         if(error){
             console.log(error);

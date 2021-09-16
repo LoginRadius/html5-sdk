@@ -1,5 +1,49 @@
 # LoginRadius HTML5 SDK Change Log
 
+# Version 11.2.0
+Release on **September 15, 2021**
+
+## Enhancements
+
+- Updated Jquery with latest version(3.6.0) in SDK Demo
+
+
+## Added new multiple APIs for better user experience
+
+- MFAEmailOtpByAccessToken
+- MFAValidateEmailOtpByAccessToken
+- MFAResetEmailOtpAuthenticatorByAccessToken
+- MFASecurityQuestionAnswerByAccessToken
+- MFAResetSecurityQuestionAuthenticatorByAccessToken
+- MFAEmailOTP
+- MFAValidateEmailOtp
+- MFASecurityQuestionAnswer
+- MFASecurityQuestionAnswerVerification
+- ReAuthValidateEmailOtp
+- ReAuthSendEmailOtp
+- ReAuthBySecurityQuestion
+
+## Removed APIs:
+
+- GetSocialUserProfile
+
+Added `EmailTemplate2FA` parameter in the following API
+
+- MFALoginByEmail
+- MFALoginByUserName
+- MFALoginByPhone
+
+
+Added `RbaBrowserEmailTemplate`, `RbaCityEmailTemplate` ,`RbaCountryEmailTemplate` , `RbaIpEmailTemplate` parameter in the following API
+
+- MFAValidateOTPByPhone
+- MFAValidateGoogleAuthCode
+- MFAValidateBackupCode
+
+Added `emailTemplate`, `verificationUrl` ,`welcomeEmailTemplate`  parameter in the following API
+
+- GetProfileByAccessToken
+
 # Version 11.1.1
 Released on **June 11, 2021**
 

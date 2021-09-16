@@ -1,9 +1,9 @@
-var LoginRadiusSDK = (function() {
+var LoginRadiusSDK = (function () {
   //for cross browser communication
-  (function(a, b) {
+  (function (a, b) {
     "use strict";
-    var c = function() {
-      var b = function() {
+    var c = function () {
+      var b = function () {
         var b = a.location.hash ? a.location.hash.substr(1).split("&") : [],
           c = {};
         for (var d = 0; d < b.length; d++) {
@@ -12,7 +12,7 @@ var LoginRadiusSDK = (function() {
         }
         return c
       };
-      var c = function(b) {
+      var c = function (b) {
         var c = [];
         for (var d in b) {
           c.push(d + "=" + encodeURIComponent(b[d]))
@@ -20,7 +20,7 @@ var LoginRadiusSDK = (function() {
         a.location.hash = c.join("&")
       };
       return {
-        get: function(a) {
+        get: function (a) {
           var c = b();
           if (a) {
             return c[a]
@@ -28,14 +28,14 @@ var LoginRadiusSDK = (function() {
             return c
           }
         },
-        add: function(a) {
+        add: function (a) {
           var d = b();
           for (var e in a) {
             d[e] = a[e]
           }
           c(d)
         },
-        remove: function(a) {
+        remove: function (a) {
           a = typeof a == "string" ? [a] : a;
           var d = b();
           for (var e = 0; e < a.length; e++) {
@@ -43,7 +43,7 @@ var LoginRadiusSDK = (function() {
           }
           c(d)
         },
-        clear: function() {
+        clear: function () {
           c({})
         }
       }
@@ -52,19 +52,19 @@ var LoginRadiusSDK = (function() {
   })(window)
 
   var documentCookies = {
-    getItem: function(sKey) {
+    getItem: function (sKey) {
       if (!sKey) {
         return null;
       }
       return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
     },
-    setItem: function(sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+    setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
       if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
         return false;
       }
       var sExpires = "";
       var vExpiryDate = {
-        getInStringFormat: function(nMaxAge) { //"max-age" in second
+        getInStringFormat: function (nMaxAge) { //"max-age" in second
           if (nMaxAge === Infinity) {
             return "Fri, 31 Dec 9999 23:59:59 GMT";
           }
@@ -75,34 +75,34 @@ var LoginRadiusSDK = (function() {
       }
       if (vEnd) {
         switch (vEnd.constructor) {
-        case Number:
-          sExpires = "; expires=" + vExpiryDate.getInStringFormat(vEnd) + vEnd === Infinity ? "" : "; max-age=" + vEnd;
-          break;
-        case String:
-          sExpires = "; expires=" + vEnd;
-          break;
-        case Date:
-          sExpires = "; expires=" + vEnd.toUTCString();
-          break;
+          case Number:
+            sExpires = "; expires=" + vExpiryDate.getInStringFormat(vEnd) + vEnd === Infinity ? "" : "; max-age=" + vEnd;
+            break;
+          case String:
+            sExpires = "; expires=" + vEnd;
+            break;
+          case Date:
+            sExpires = "; expires=" + vEnd.toUTCString();
+            break;
         }
       }
       document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
       return true;
     },
-    removeItem: function(sKey, sPath, sDomain) {
+    removeItem: function (sKey, sPath, sDomain) {
       if (!this.hasItem(sKey)) {
         return false;
       }
       document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
       return true;
     },
-    hasItem: function(sKey) {
+    hasItem: function (sKey) {
       if (!sKey) {
         return false;
       }
       return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
     },
-    keys: function() {
+    keys: function () {
       var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
       for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) {
         aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]);
@@ -110,7 +110,7 @@ var LoginRadiusSDK = (function() {
       return aKeys;
 
     }
-  };  
+  };
   var apiDomain = "https://api.loginradius.com";
   var token = 'LRTokenKey';
   var util = {};
@@ -126,9 +126,9 @@ var LoginRadiusSDK = (function() {
     920: {
       "Description": "The provided LoginRadius API key is invalid, please use a valid API key of your LoginRadius account.",
       "ErrorCode": 920,
-      "Message": "API key is invalid" 
+      "Message": "API key is invalid"
     },
-    1000:{
+    1000: {
       "Description": "Oops something went wrong, Please try again.",
       "ErrorCode": 1000,
       "Message": "Oops something went wrong, Please try again."
@@ -142,7 +142,7 @@ var LoginRadiusSDK = (function() {
 
   // store all about loginradius module
   var module = {};
-  var onlogin = function() {};
+  var onlogin = function () { };
 
   module.isauthenticated = false;
 
@@ -152,7 +152,7 @@ var LoginRadiusSDK = (function() {
    * @public
    * @param fn {function}
    */
-  module.setLoginCallback = function(fn) {
+  module.setLoginCallback = function (fn) {
     module.onlogin = fn;
   };
 
@@ -190,7 +190,7 @@ var LoginRadiusSDK = (function() {
       return localStorage.getItem(key);
     }
     if (isLocalStorageNameSupported('sessionStorage') &&
-          sessionStorage.getItem(key) !== null && sessionStorage.getItem(key) !== undefined && sessionStorage.getItem(key) !== "") {
+      sessionStorage.getItem(key) !== null && sessionStorage.getItem(key) !== undefined && sessionStorage.getItem(key) !== "") {
       return sessionStorage.getItem(key);
     }
 
@@ -218,9 +218,9 @@ var LoginRadiusSDK = (function() {
       documentCookies.setItem(key, value, '', window.location);
     }
   }
-    
-  module.oneTouchLoginApi = {};  
-  module.oneTouchLoginApi = { 
+
+  module.oneTouchLoginApi = {};
+  module.oneTouchLoginApi = {
     /**
     * This API is used to send a link to a specified email for a frictionless login/registration
     * @param {oneTouchLoginByEmailModel} Model Class containing Definition of payload for OneTouchLogin By EmailModel API
@@ -230,7 +230,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 1.2
     */
-    oneTouchLoginByEmail : function (oneTouchLoginByEmailModel, oneTouchLoginEmailTemplate,
+    oneTouchLoginByEmail: function (oneTouchLoginByEmailModel, oneTouchLoginEmailTemplate,
       redirecturl, welcomeemailtemplate, handle) {
       if (util.checkJson(oneTouchLoginByEmailModel)) {
         return handle(util.message('oneTouchLoginByEmailModel'));
@@ -258,7 +258,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 1.4
     */
-    oneTouchLoginByPhone : function (oneTouchLoginByPhoneModel, smsTemplate, handle) {
+    oneTouchLoginByPhone: function (oneTouchLoginByPhoneModel, smsTemplate, handle) {
       if (util.checkJson(oneTouchLoginByPhoneModel)) {
         return handle(util.message('oneTouchLoginByPhoneModel'));
       }
@@ -281,7 +281,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing Access Token and Complete Profile Data
     * 1.5
     */
-    oneTouchLoginOTPVerification : function (otp, phone,
+    oneTouchLoginOTPVerification: function (otp, phone,
       fields, smsTemplate, handle) {
       if (util.isNull(otp)) {
         return handle(util.message('otp'));
@@ -313,7 +313,7 @@ var LoginRadiusSDK = (function() {
     * @return Complete verified response data
     * 8.4.2
     */
-    oneTouchEmailVerification : function (verificationToken, welcomeEmailTemplate, handle) {
+    oneTouchEmailVerification: function (verificationToken, welcomeEmailTemplate, handle) {
       if (util.isNull(verificationToken)) {
         return handle(util.message('verificationToken'));
       }
@@ -335,7 +335,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.21.2
     */
-    oneTouchLoginPing : function (clientGuid, fields, handle) {
+    oneTouchLoginPing: function (clientGuid, fields, handle) {
       if (util.isNull(clientGuid)) {
         return handle(util.message('clientGuid'));
       }
@@ -349,17 +349,17 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/login/smartlogin/ping';
 
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
-    }, 
-  }  
-  module.authenticationApi = {};  
-  module.authenticationApi = { 
+    },
+  }
+  module.authenticationApi = {};
+  module.authenticationApi = {
     /**
     * This API is used to retrieve the list of questions that are configured on the respective LoginRadius site.
     * @param {email} Email of the user
     * @return Response containing Definition for Complete SecurityQuestions data
     * 2.1
     */
-    getSecurityQuestionsByEmail : function (email, handle) {
+    getSecurityQuestionsByEmail: function (email, handle) {
       if (util.isNull(email)) {
         return handle(util.message('email'));
       }
@@ -377,7 +377,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete SecurityQuestions data
     * 2.2
     */
-    getSecurityQuestionsByUserName : function (userName, handle) {
+    getSecurityQuestionsByUserName: function (userName, handle) {
       if (util.isNull(userName)) {
         return handle(util.message('userName'));
       }
@@ -395,7 +395,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete SecurityQuestions data
     * 2.3
     */
-    getSecurityQuestionsByPhone : function (phone, handle) {
+    getSecurityQuestionsByPhone: function (phone, handle) {
       if (util.isNull(phone)) {
         return handle(util.message('phone'));
       }
@@ -413,7 +413,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete SecurityQuestions data
     * 2.4
     */
-    getSecurityQuestionsByAccessToken : function (accessToken, handle) {
+    getSecurityQuestionsByAccessToken: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -431,7 +431,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 4.1
     */
-    authValidateAccessToken : function (accessToken, handle) {
+    authValidateAccessToken: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -450,7 +450,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 4.2
     */
-    authInValidateAccessToken : function (accessToken, preventRefresh, handle) {
+    authInValidateAccessToken: function (accessToken, preventRefresh, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -471,7 +471,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Token Information
     * 4.3
     */
-    getAccessTokenInfo : function (accessToken, handle) {
+    getAccessTokenInfo: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -484,13 +484,16 @@ var LoginRadiusSDK = (function() {
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
     },
     /**
-    * This API retrieves a copy of the user data based on the access token.
-    * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-    * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-    * @return Response containing Definition for Complete profile data
-    * 5.2
-    */
-    getProfileByAccessToken : function (accessToken, fields, handle) {
+     * This API retrieves a copy of the user data based on the access token.
+     * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+     * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+     * @param {emailTemplate}
+     *  @param {verificationUrl} 
+     * @param {welcomeEmailTemplate} 
+     * @return Response containing Definition for Complete profile data
+     * 5.2
+     */
+    getProfileByAccessToken: function (accessToken, fields, emailTemplate, verificationUrl, welcomeEmailTemplate, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -499,6 +502,15 @@ var LoginRadiusSDK = (function() {
       queryParameters.access_token = accessToken;
       if (!util.isNull(fields)) {
         queryParameters.fields = fields;
+      }
+      if (!util.isNull(emailTemplate)) {
+        queryParameters.emailTemplate = emailTemplate;
+      }
+      if (!util.isNull(verificationUrl)) {
+        queryParameters.verificationUrl = verificationUrl;
+      }
+      if (!util.isNull(welcomeEmailTemplate)) {
+        queryParameters.welcomeEmailTemplate = welcomeEmailTemplate;
       }
 
       var resourcePath = 'identity/v2/auth/account';
@@ -512,7 +524,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 5.3
     */
-    sendWelcomeEmail : function (accessToken, welcomeEmailTemplate, handle) {
+    sendWelcomeEmail: function (accessToken, welcomeEmailTemplate, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -539,7 +551,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation and UserProfile data
     * 5.4
     */
-    updateProfileByAccessToken : function (accessToken, userProfileUpdateModel,
+    updateProfileByAccessToken: function (accessToken, userProfileUpdateModel,
       emailTemplate, fields, nullSupport, smsTemplate, verificationUrl, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -578,7 +590,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Delete Request
     * 5.5
     */
-    deleteAccountWithEmailConfirmation : function (accessToken, deleteUrl,
+    deleteAccountWithEmailConfirmation: function (accessToken, deleteUrl,
       emailTemplate, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -603,7 +615,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 5.6
     */
-    deleteAccountByDeleteToken : function (deletetoken, handle) {
+    deleteAccountByDeleteToken: function (deletetoken, handle) {
       if (util.isNull(deletetoken)) {
         return handle(util.message('deletetoken'));
       }
@@ -622,7 +634,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 5.15
     */
-    unlockAccountByToken : function (accessToken, unlockProfileModel, handle) {
+    unlockAccountByToken: function (accessToken, unlockProfileModel, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -647,7 +659,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 5.16
     */
-    getProfileByPing : function (clientGuid, emailTemplate,
+    getProfileByPing: function (clientGuid, emailTemplate,
       fields, verificationUrl, welcomeEmailTemplate, handle) {
       if (util.isNull(clientGuid)) {
         return handle(util.message('clientGuid'));
@@ -678,7 +690,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition Complete ExistResponse data
     * 8.1
     */
-    checkEmailAvailability : function (email, handle) {
+    checkEmailAvailability: function (email, handle) {
       if (util.isNull(email)) {
         return handle(util.message('email'));
       }
@@ -699,7 +711,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
     * 8.2
     */
-    verifyEmail : function (verificationToken, fields,
+    verifyEmail: function (verificationToken, fields,
       url, welcomeEmailTemplate, handle) {
       if (util.isNull(verificationToken)) {
         return handle(util.message('verificationToken'));
@@ -730,7 +742,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
     * 8.3
     */
-    verifyEmailByOTP : function (emailVerificationByOtpModel, fields,
+    verifyEmailByOTP: function (emailVerificationByOtpModel, fields,
       url, welcomeEmailTemplate, handle) {
       if (util.checkJson(emailVerificationByOtpModel)) {
         return handle(util.message('emailVerificationByOtpModel'));
@@ -761,7 +773,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 8.5
     */
-    addEmail : function (accessToken, email,
+    addEmail: function (accessToken, email,
       type, emailTemplate, verificationUrl, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -797,7 +809,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Delete Request
     * 8.6
     */
-    removeEmail : function (accessToken, email, handle) {
+    removeEmail: function (accessToken, email, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -825,7 +837,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.2.1
     */
-    loginByEmail : function (emailAuthenticationModel, emailTemplate,
+    loginByEmail: function (emailAuthenticationModel, emailTemplate,
       fields, loginUrl, verificationUrl, handle) {
       if (util.checkJson(emailAuthenticationModel)) {
         return handle(util.message('emailAuthenticationModel'));
@@ -859,7 +871,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.2.2
     */
-    loginByUserName : function (userNameAuthenticationModel, emailTemplate,
+    loginByUserName: function (userNameAuthenticationModel, emailTemplate,
       fields, loginUrl, verificationUrl, handle) {
       if (util.checkJson(userNameAuthenticationModel)) {
         return handle(util.message('userNameAuthenticationModel'));
@@ -891,7 +903,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 10.1
     */
-    forgotPassword : function (email, resetPasswordUrl,
+    forgotPassword: function (email, resetPasswordUrl,
       emailTemplate, handle) {
       if (util.isNull(email)) {
         return handle(util.message('email'));
@@ -919,7 +931,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Validation data and access token
     * 10.3.1
     */
-    resetPasswordBySecurityAnswerAndEmail : function (resetPasswordBySecurityAnswerAndEmailModel, handle) {
+    resetPasswordBySecurityAnswerAndEmail: function (resetPasswordBySecurityAnswerAndEmailModel, handle) {
       if (util.checkJson(resetPasswordBySecurityAnswerAndEmailModel)) {
         return handle(util.message('resetPasswordBySecurityAnswerAndEmailModel'));
       }
@@ -936,7 +948,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Validation data and access token
     * 10.3.2
     */
-    resetPasswordBySecurityAnswerAndPhone : function (resetPasswordBySecurityAnswerAndPhoneModel, handle) {
+    resetPasswordBySecurityAnswerAndPhone: function (resetPasswordBySecurityAnswerAndPhoneModel, handle) {
       if (util.checkJson(resetPasswordBySecurityAnswerAndPhoneModel)) {
         return handle(util.message('resetPasswordBySecurityAnswerAndPhoneModel'));
       }
@@ -953,7 +965,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Validation data and access token
     * 10.3.3
     */
-    resetPasswordBySecurityAnswerAndUserName : function (resetPasswordBySecurityAnswerAndUserNameModel, handle) {
+    resetPasswordBySecurityAnswerAndUserName: function (resetPasswordBySecurityAnswerAndUserNameModel, handle) {
       if (util.checkJson(resetPasswordBySecurityAnswerAndUserNameModel)) {
         return handle(util.message('resetPasswordBySecurityAnswerAndUserNameModel'));
       }
@@ -970,7 +982,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Validation data and access token
     * 10.7.1
     */
-    resetPasswordByResetToken : function (resetPasswordByResetTokenModel, handle) {
+    resetPasswordByResetToken: function (resetPasswordByResetTokenModel, handle) {
       if (util.checkJson(resetPasswordByResetTokenModel)) {
         return handle(util.message('resetPasswordByResetTokenModel'));
       }
@@ -987,7 +999,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Validation data and access token
     * 10.7.2
     */
-    resetPasswordByEmailOTP : function (resetPasswordByEmailAndOtpModel, handle) {
+    resetPasswordByEmailOTP: function (resetPasswordByEmailAndOtpModel, handle) {
       if (util.checkJson(resetPasswordByEmailAndOtpModel)) {
         return handle(util.message('resetPasswordByEmailAndOtpModel'));
       }
@@ -1004,7 +1016,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Validation data and access token
     * 10.7.3
     */
-    resetPasswordByOTPAndUserName : function (resetPasswordByUserNameModel, handle) {
+    resetPasswordByOTPAndUserName: function (resetPasswordByUserNameModel, handle) {
       if (util.checkJson(resetPasswordByUserNameModel)) {
         return handle(util.message('resetPasswordByUserNameModel'));
       }
@@ -1023,7 +1035,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 10.8
     */
-    changePassword : function (accessToken, newPassword,
+    changePassword: function (accessToken, newPassword,
       oldPassword, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -1054,7 +1066,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Delete Request
     * 12.2
     */
-    unlinkSocialIdentities : function (accessToken, provider,
+    unlinkSocialIdentities: function (accessToken, provider,
       providerId, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -1084,7 +1096,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 12.4
     */
-    linkSocialIdentities : function (accessToken, candidateToken, handle) {
+    linkSocialIdentities: function (accessToken, candidateToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1109,7 +1121,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 12.5
     */
-    linkSocialIdentitiesByPing : function (accessToken, clientGuid, handle) {
+    linkSocialIdentitiesByPing: function (accessToken, clientGuid, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1134,7 +1146,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 13.1
     */
-    setOrChangeUserName : function (accessToken, username, handle) {
+    setOrChangeUserName: function (accessToken, username, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1158,7 +1170,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition Complete ExistResponse data
     * 13.2
     */
-    checkUserNameAvailability : function (username, handle) {
+    checkUserNameAvailability: function (username, handle) {
       if (util.isNull(username)) {
         return handle(util.message('username'));
       }
@@ -1177,7 +1189,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete profile data
     * 15.1
     */
-    acceptPrivacyPolicy : function (accessToken, fields, handle) {
+    acceptPrivacyPolicy: function (accessToken, fields, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1198,7 +1210,7 @@ var LoginRadiusSDK = (function() {
     * @return Complete Policy History data
     * 15.2
     */
-    getPrivacyPolicyHistoryByAccessToken : function (accessToken, handle) {
+    getPrivacyPolicyHistoryByAccessToken: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1222,7 +1234,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
     * 17.1.1
     */
-    userRegistrationByEmail : function (authUserRegistrationModel, sott,
+    userRegistrationByEmail: function (authUserRegistrationModel, sott,
       emailTemplate, fields, options, verificationUrl, welcomeEmailTemplate, handle) {
       if (util.checkJson(authUserRegistrationModel)) {
         return handle(util.message('authUserRegistrationModel'));
@@ -1265,7 +1277,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
     * 17.2
     */
-    userRegistrationByCaptcha : function (authUserRegistrationModelWithCaptcha, emailTemplate,
+    userRegistrationByCaptcha: function (authUserRegistrationModelWithCaptcha, emailTemplate,
       fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate, handle) {
       if (util.checkJson(authUserRegistrationModelWithCaptcha)) {
         return handle(util.message('authUserRegistrationModelWithCaptcha'));
@@ -1303,7 +1315,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 17.3
     */
-    authResendEmailVerification : function (email, emailTemplate,
+    authResendEmailVerification: function (email, emailTemplate,
       verificationUrl, handle) {
       if (util.isNull(email)) {
         return handle(util.message('email'));
@@ -1323,10 +1335,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/register';
 
       return util.xhttpCall('PUT', resourcePath, queryParameters, bodyParameters, handle);
-    }, 
-  }  
-  module.configurationApi = {};  
-  module.configurationApi = { 
+    },
+  }
+  module.configurationApi = {};
+  module.configurationApi = {
 
     /**
     * This API is used to get the configurations which are set in the LoginRadius Dashboard for a particular LoginRadius site/environment
@@ -1345,7 +1357,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete service info data
     * 3.1
     */
-    getServerInfo : function (timeDifference, handle) {
+    getServerInfo: function (timeDifference, handle) {
       var queryParameters = {};
 
       if (timeDifference !== null) {
@@ -1355,10 +1367,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/serverinfo';
 
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
-    }, 
-  }  
-  module.multiFactorAuthenticationApi = {};  
-  module.multiFactorAuthenticationApi = { 
+    },
+  }
+  module.multiFactorAuthenticationApi = {};
+  module.multiFactorAuthenticationApi = {
     /**
     * This API is used to configure the Multi-factor authentication after login by using the access token when MFA is set as optional on the LoginRadius site.
     * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -1366,7 +1378,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Multi-Factor Authentication Settings data
     * 5.7
     */
-    mfaConfigureByAccessToken : function (accessToken, smsTemplate2FA, handle) {
+    mfaConfigureByAccessToken: function (accessToken, smsTemplate2FA, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1389,7 +1401,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete profile data
     * 5.9
     */
-    mfaUpdateSetting : function (accessToken, multiFactorAuthModelWithLockout,
+    mfaUpdateSetting: function (accessToken, multiFactorAuthModelWithLockout,
       fields, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -1417,7 +1429,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete profile data
     * 5.10
     */
-    mfaUpdateByAccessToken : function (accessToken, multiFactorAuthModelByGoogleAuthenticatorCode,
+    mfaUpdateByAccessToken: function (accessToken, multiFactorAuthModelByGoogleAuthenticatorCode,
       fields, smsTemplate, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -1447,7 +1459,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete SMS data
     * 5.11
     */
-    mfaUpdatePhoneNumberByToken : function (accessToken, phoneNo2FA,
+    mfaUpdatePhoneNumberByToken: function (accessToken, phoneNo2FA,
       smsTemplate2FA, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -1476,7 +1488,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Delete Request
     * 5.12.1
     */
-    mfaResetGoogleAuthByToken : function (accessToken, googleauthenticator, handle) {
+    mfaResetGoogleAuthByToken: function (accessToken, googleauthenticator, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1498,7 +1510,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Delete Request
     * 5.12.2
     */
-    mfaResetSMSAuthByToken : function (accessToken, otpauthenticator, handle) {
+    mfaResetSMSAuthByToken: function (accessToken, otpauthenticator, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1519,7 +1531,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Backup Code data
     * 5.13
     */
-    mfaBackupCodeByAccessToken : function (accessToken, handle) {
+    mfaBackupCodeByAccessToken: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1537,7 +1549,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Backup Code data
     * 5.14
     */
-    mfaResetBackupCodeByAccessToken : function (accessToken, handle) {
+    mfaResetBackupCodeByAccessToken: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1550,6 +1562,114 @@ var LoginRadiusSDK = (function() {
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
     },
     /**
+    * This API is created to send the OTP to the email if email OTP authenticator is enabled in app's MFA configuration.
+    * @param {accessToken} access_token
+    * @param {emailId} EmailId
+    * @param {emailTemplate2FA} EmailTemplate2FA
+    * @return Response containing Definition of Complete Validation data
+    * 5.17
+    */
+    mfaEmailOtpByAccessToken: function (accessToken, emailId,
+      emailTemplate2FA, handle) {
+      if (util.isNull(accessToken)) {
+        return handle(util.message('accessToken'));
+      }
+      if (util.isNull(emailId)) {
+        return handle(util.message('emailId'));
+      }
+      var queryParameters = {};
+
+      queryParameters.access_token = accessToken;
+      queryParameters.emailId = emailId;
+      if (!util.isNull(emailTemplate2FA)) {
+        queryParameters.emailTemplate2FA = emailTemplate2FA;
+      }
+
+      var resourcePath = 'identity/v2/auth/account/2fa/otp/email';
+
+      return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
+    },
+    /**
+    * This API is used to set up MFA Email OTP authenticator on profile after login.
+    * @param {accessToken} access_token
+    * @param {multiFactorAuthModelByEmailOtpWithLockout} payload
+    * @return Response containing Definition for Complete profile data
+    * 5.18
+    */
+    mfaValidateEmailOtpByAccessToken: function (accessToken, multiFactorAuthModelByEmailOtpWithLockout, handle) {
+      if (util.isNull(accessToken)) {
+        return handle(util.message('accessToken'));
+      }
+      if (util.checkJson(multiFactorAuthModelByEmailOtpWithLockout)) {
+        return handle(util.message('multiFactorAuthModelByEmailOtpWithLockout'));
+      }
+      var queryParameters = {};
+
+      queryParameters.access_token = accessToken;
+
+      var resourcePath = 'identity/v2/auth/account/2fa/verification/otp/email';
+
+      return util.xhttpCall('PUT', resourcePath, queryParameters, multiFactorAuthModelByEmailOtpWithLockout, handle);
+    },
+    /**
+    * This API is used to reset the Email OTP Authenticator settings for an MFA-enabled user
+    * @param {accessToken} access_token
+    * @return Response containing Definition of Delete Request
+    * 5.19
+    */
+    mfaResetEmailOtpAuthenticatorByAccessToken: function (accessToken, handle) {
+      if (util.isNull(accessToken)) {
+        return handle(util.message('accessToken'));
+      }
+      var queryParameters = {};
+
+      queryParameters.access_token = accessToken;
+
+      var resourcePath = 'identity/v2/auth/account/2fa/authenticator/otp/email';
+
+      return util.xhttpCall('DELETE', resourcePath, queryParameters, {}, handle);
+    },
+    /**
+    * This API is used to set up MFA Security Question authenticator on profile after login.
+    * @param {accessToken} access_token
+    * @param {securityQuestionAnswerModelByAccessToken} payload
+    * @return Response containing Definition of Complete Validation data
+    * 5.20
+    */
+    mfaSecurityQuestionAnswerByAccessToken: function (accessToken, securityQuestionAnswerModelByAccessToken, handle) {
+      if (util.isNull(accessToken)) {
+        return handle(util.message('accessToken'));
+      }
+      if (util.checkJson(securityQuestionAnswerModelByAccessToken)) {
+        return handle(util.message('securityQuestionAnswerModelByAccessToken'));
+      }
+      var queryParameters = {};
+
+      queryParameters.access_token = accessToken;
+
+      var resourcePath = 'identity/v2/auth/account/2fa/securityquestionanswer';
+
+      return util.xhttpCall('PUT', resourcePath, queryParameters, securityQuestionAnswerModelByAccessToken, handle);
+    },
+    /**
+    * This API is used to Reset MFA Security Question Authenticator By Access Token
+    * @param {accessToken} access_token
+    * @return Response containing Definition of Delete Request
+    * 5.21
+    */
+    mfaResetSecurityQuestionAuthenticatorByAccessToken: function (accessToken, handle) {
+      if (util.isNull(accessToken)) {
+        return handle(util.message('accessToken'));
+      }
+      var queryParameters = {};
+
+      queryParameters.access_token = accessToken;
+
+      var resourcePath = 'identity/v2/auth/account/2fa/authenticator/securityquestionanswer';
+
+      return util.xhttpCall('DELETE', resourcePath, queryParameters, {}, handle);
+    },
+    /**
     * This API can be used to login by emailid on a Multi-factor authentication enabled LoginRadius site.
     * @param {email} user's email
     * @param {password} Password for the email
@@ -1559,12 +1679,13 @@ var LoginRadiusSDK = (function() {
     * @param {smsTemplate} SMS Template name
     * @param {smsTemplate2FA} SMS Template Name
     * @param {verificationUrl} Email verification url
+    * @param {emailTemplate2FA}  2FA Email Template name
     * @return Complete user UserProfile data
     * 9.8.1
     */
-    mfaLoginByEmail : function (email, password,
-      emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA,
-      verificationUrl, handle) {
+    mfaLoginByEmail: function (email, password,
+      emailTemplate, fields, loginUrl, smsTemplate,
+      smsTemplate2FA, verificationUrl, emailTemplate2FA, handle) {
       if (util.isNull(email)) {
         return handle(util.message('email'));
       }
@@ -1591,6 +1712,9 @@ var LoginRadiusSDK = (function() {
       if (!util.isNull(verificationUrl)) {
         queryParameters.verificationUrl = verificationUrl;
       }
+      if (!util.isNull(emailTemplate2FA)) {
+        queryParameters.emailTemplate2FA = emailTemplate2FA;
+      }
 
       var bodyParameters = {};
       bodyParameters.email = email;
@@ -1610,12 +1734,13 @@ var LoginRadiusSDK = (function() {
     * @param {smsTemplate} SMS Template name
     * @param {smsTemplate2FA} SMS Template Name
     * @param {verificationUrl} Email verification url
+    * @param {emailTemplate2FA}  2FA Email Template name
     * @return Complete user UserProfile data
     * 9.8.2
     */
-    mfaLoginByUserName : function (password, username,
-      emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA,
-      verificationUrl, handle) {
+    mfaLoginByUserName: function (password, username,
+      emailTemplate, fields, loginUrl, smsTemplate,
+      smsTemplate2FA, verificationUrl, emailTemplate2FA, handle) {
       if (util.isNull(password)) {
         return handle(util.message('password'));
       }
@@ -1642,7 +1767,9 @@ var LoginRadiusSDK = (function() {
       if (!util.isNull(verificationUrl)) {
         queryParameters.verificationUrl = verificationUrl;
       }
-
+      if (!util.isNull(emailTemplate2FA)) {
+        queryParameters.emailTemplate2FA = emailTemplate2FA;
+      }
       var bodyParameters = {};
       bodyParameters.password = password;
       bodyParameters.username = username;
@@ -1661,12 +1788,13 @@ var LoginRadiusSDK = (function() {
     * @param {smsTemplate} SMS Template name
     * @param {smsTemplate2FA} SMS Template Name
     * @param {verificationUrl} Email verification url
+    * @param {emailTemplate2FA}  2FA Email Template name
     * @return Complete user UserProfile data
     * 9.8.3
     */
-    mfaLoginByPhone : function (password, phone,
-      emailTemplate, fields, loginUrl, smsTemplate, smsTemplate2FA,
-      verificationUrl, handle) {
+    mfaLoginByPhone: function (password, phone,
+      emailTemplate, fields, loginUrl, smsTemplate,
+      smsTemplate2FA, verificationUrl, emailTemplate2FA, handle) {
       if (util.isNull(password)) {
         return handle(util.message('password'));
       }
@@ -1693,6 +1821,9 @@ var LoginRadiusSDK = (function() {
       if (!util.isNull(verificationUrl)) {
         queryParameters.verificationUrl = verificationUrl;
       }
+      if (!util.isNull(emailTemplate2FA)) {
+        queryParameters.emailTemplate2FA = emailTemplate2FA;
+      }
 
       var bodyParameters = {};
       bodyParameters.password = password;
@@ -1708,11 +1839,15 @@ var LoginRadiusSDK = (function() {
     * @param {secondFactorAuthenticationToken} A Uniquely generated MFA identifier token after successful authentication
     * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
     * @param {smsTemplate2FA} SMS Template Name
+    *  @param {rbaBrowserEmailTemplate} 
+    * @param {rbaCityEmailTemplate} 
+    * @param {rbaCountryEmailTemplate} 
+    * @param {rbaIpEmailTemplate} 
     * @return Complete user UserProfile data
     * 9.12
     */
-    mfaValidateOTPByPhone : function (multiFactorAuthModelWithLockout, secondFactorAuthenticationToken,
-      fields, smsTemplate2FA, handle) {
+    mfaValidateOTPByPhone: function (multiFactorAuthModelWithLockout, secondFactorAuthenticationToken,
+      fields, smsTemplate2FA, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate, handle) {
       if (util.checkJson(multiFactorAuthModelWithLockout)) {
         return handle(util.message('multiFactorAuthModelWithLockout'));
       }
@@ -1728,6 +1863,18 @@ var LoginRadiusSDK = (function() {
       if (!util.isNull(smsTemplate2FA)) {
         queryParameters.smsTemplate2FA = smsTemplate2FA;
       }
+      if (!util.isNull(rbaBrowserEmailTemplate)) {
+        queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+      }
+      if (!util.isNull(rbaCityEmailTemplate)) {
+        queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+      }
+      if (!util.isNull(rbaCountryEmailTemplate)) {
+        queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+      }
+      if (!util.isNull(rbaIpEmailTemplate)) {
+        queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
+      }
 
       var resourcePath = 'identity/v2/auth/login/2fa/verification/otp';
 
@@ -1736,14 +1883,17 @@ var LoginRadiusSDK = (function() {
     /**
     * This API is used to login via Multi-factor-authentication by passing the google authenticator code.
     * @param {googleAuthenticatorCode} The code generated by google authenticator app after scanning QR code
-    * @param {secondFactorAuthenticationToken} A Uniquely generated MFA identifier token after successful authentication
+    * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
     * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-    * @param {smsTemplate2FA} SMS Template Name
+    * @param {rbaBrowserEmailTemplate} RbaBrowserEmailTemplate
+    * @param {rbaCityEmailTemplate} RbaCityEmailTemplate
+    * @param {rbaCountryEmailTemplate} RbaCountryEmailTemplate
+    * @param {rbaIpEmailTemplate} RbaIpEmailTemplate
     * @return Complete user UserProfile data
     * 9.13
     */
-    mfaValidateGoogleAuthCode : function (googleAuthenticatorCode, secondFactorAuthenticationToken,
-      fields, smsTemplate2FA, handle) {
+    mfaValidateGoogleAuthCode: function (googleAuthenticatorCode, secondFactorAuthenticationToken,
+      fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate, handle) {
       if (util.isNull(googleAuthenticatorCode)) {
         return handle(util.message('googleAuthenticatorCode'));
       }
@@ -1756,8 +1906,17 @@ var LoginRadiusSDK = (function() {
       if (!util.isNull(fields)) {
         queryParameters.fields = fields;
       }
-      if (!util.isNull(smsTemplate2FA)) {
-        queryParameters.smsTemplate2FA = smsTemplate2FA;
+      if (!util.isNull(rbaBrowserEmailTemplate)) {
+        queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+      }
+      if (!util.isNull(rbaCityEmailTemplate)) {
+        queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+      }
+      if (!util.isNull(rbaCountryEmailTemplate)) {
+        queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+      }
+      if (!util.isNull(rbaIpEmailTemplate)) {
+        queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
       }
 
       var bodyParameters = {};
@@ -1772,11 +1931,15 @@ var LoginRadiusSDK = (function() {
     * @param {multiFactorAuthModelByBackupCode} Model Class containing Definition of payload for MultiFactorAuth By BackupCode API
     * @param {secondFactorAuthenticationToken} A Uniquely generated MFA identifier token after successful authentication
     * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
+    * @param {rbaBrowserEmailTemplate} 
+    * @param {rbaCityEmailTemplate} 
+    * @param {rbaCountryEmailTemplate} 
+    * @param {rbaIpEmailTemplate} 
     * @return Complete user UserProfile data
     * 9.14
     */
-    mfaValidateBackupCode : function (multiFactorAuthModelByBackupCode, secondFactorAuthenticationToken,
-      fields, handle) {
+    mfaValidateBackupCode: function (multiFactorAuthModelByBackupCode, secondFactorAuthenticationToken,
+      fields, rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate, handle) {
       if (util.checkJson(multiFactorAuthModelByBackupCode)) {
         return handle(util.message('multiFactorAuthModelByBackupCode'));
       }
@@ -1788,6 +1951,18 @@ var LoginRadiusSDK = (function() {
       queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
       if (!util.isNull(fields)) {
         queryParameters.fields = fields;
+      }
+      if (!util.isNull(rbaBrowserEmailTemplate)) {
+        queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+      }
+      if (!util.isNull(rbaCityEmailTemplate)) {
+        queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+      }
+      if (!util.isNull(rbaCountryEmailTemplate)) {
+        queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+      }
+      if (!util.isNull(rbaIpEmailTemplate)) {
+        queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
       }
 
       var resourcePath = 'identity/v2/auth/login/2fa/verification/backupcode';
@@ -1802,7 +1977,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete SMS data
     * 9.16
     */
-    mfaUpdatePhoneNumber : function (phoneNo2FA, secondFactorAuthenticationToken,
+    mfaUpdatePhoneNumber: function (phoneNo2FA, secondFactorAuthenticationToken,
       smsTemplate2FA, handle) {
       if (util.isNull(phoneNo2FA)) {
         return handle(util.message('phoneNo2FA'));
@@ -1831,7 +2006,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete SMS data
     * 9.17
     */
-    mfaResendOTP : function (secondFactorAuthenticationToken, smsTemplate2FA, handle) {
+    mfaResendOTP: function (secondFactorAuthenticationToken, smsTemplate2FA, handle) {
       if (util.isNull(secondFactorAuthenticationToken)) {
         return handle(util.message('secondFactorAuthenticationToken'));
       }
@@ -1845,10 +2020,137 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/login/2fa/resend';
 
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
-    }, 
-  }  
-  module.customObjectApi = {};  
-  module.customObjectApi = { 
+    },
+    /**
+    * An API designed to send the MFA Email OTP to the email.
+    * @param {emailIdModel} payload
+    * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
+    * @param {emailTemplate2FA} EmailTemplate2FA
+    * @return Response containing Definition of Complete Validation data
+    * 9.18
+    */
+    mfaEmailOTP: function (emailIdModel, secondFactorAuthenticationToken,
+      emailTemplate2FA, handle) {
+      if (util.checkJson(emailIdModel)) {
+        return handle(util.message('emailIdModel'));
+      }
+      if (util.isNull(secondFactorAuthenticationToken)) {
+        return handle(util.message('secondFactorAuthenticationToken'));
+      }
+      var queryParameters = {};
+
+      queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
+      if (!util.isNull(emailTemplate2FA)) {
+        queryParameters.emailTemplate2FA = emailTemplate2FA;
+      }
+
+      var resourcePath = 'identity/v2/auth/login/2fa/otp/email';
+
+      return util.xhttpCall('POST', resourcePath, queryParameters, emailIdModel, handle);
+    },
+    /**
+    * This API is used to Verify MFA Email OTP by MFA Token
+    * @param {multiFactorAuthModelByEmailOtp} payload
+    * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
+    * @param {rbaBrowserEmailTemplate} RbaBrowserEmailTemplate
+    * @param {rbaCityEmailTemplate} RbaCityEmailTemplate
+    * @param {rbaCountryEmailTemplate} RbaCountryEmailTemplate
+    * @param {rbaIpEmailTemplate} RbaIpEmailTemplate
+    * @return Response Containing Access Token and Complete Profile Data
+    * 9.25
+    */
+    mfaValidateEmailOtp: function (multiFactorAuthModelByEmailOtp, secondFactorAuthenticationToken,
+      rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate, handle) {
+      if (util.checkJson(multiFactorAuthModelByEmailOtp)) {
+        return handle(util.message('multiFactorAuthModelByEmailOtp'));
+      }
+      if (util.isNull(secondFactorAuthenticationToken)) {
+        return handle(util.message('secondFactorAuthenticationToken'));
+      }
+      var queryParameters = {};
+
+      queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
+      if (!util.isNull(rbaBrowserEmailTemplate)) {
+        queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+      }
+      if (!util.isNull(rbaCityEmailTemplate)) {
+        queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+      }
+      if (!util.isNull(rbaCountryEmailTemplate)) {
+        queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+      }
+      if (!util.isNull(rbaIpEmailTemplate)) {
+        queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
+      }
+
+      var resourcePath = 'identity/v2/auth/login/2fa/verification/otp/email';
+
+      return util.xhttpCall('PUT', resourcePath, queryParameters, multiFactorAuthModelByEmailOtp, handle);
+    },
+    /**
+    * This API is used to set the security questions on the profile with the MFA token when MFA flow is required.
+    * @param {securityQuestionAnswerUpdateModel} payload
+    * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
+    * @return Response Containing Access Token and Complete Profile Data
+    * 9.26
+    */
+    mfaSecurityQuestionAnswer: function (securityQuestionAnswerUpdateModel, secondFactorAuthenticationToken, handle) {
+      if (util.checkJson(securityQuestionAnswerUpdateModel)) {
+        return handle(util.message('securityQuestionAnswerUpdateModel'));
+      }
+      if (util.isNull(secondFactorAuthenticationToken)) {
+        return handle(util.message('secondFactorAuthenticationToken'));
+      }
+      var queryParameters = {};
+
+      queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
+
+      var resourcePath = 'identity/v2/auth/login/2fa/securityquestionanswer';
+
+      return util.xhttpCall('PUT', resourcePath, queryParameters, securityQuestionAnswerUpdateModel, handle);
+    },
+    /**
+    * This API is used to resending the verification OTP to the provided phone number
+    * @param {securityQuestionAnswerUpdateModel} payload
+    * @param {secondFactorAuthenticationToken} SecondFactorAuthenticationToken
+    * @param {rbaBrowserEmailTemplate} RbaBrowserEmailTemplate
+    * @param {rbaCityEmailTemplate} RbaCityEmailTemplate
+    * @param {rbaCountryEmailTemplate} RbaCountryEmailTemplate
+    * @param {rbaIpEmailTemplate} RbaIpEmailTemplate
+    * @return Response Containing Access Token and Complete Profile Data
+    * 9.27
+    */
+    mfaSecurityQuestionAnswerVerification: function (securityQuestionAnswerUpdateModel, secondFactorAuthenticationToken,
+      rbaBrowserEmailTemplate, rbaCityEmailTemplate, rbaCountryEmailTemplate, rbaIpEmailTemplate, handle) {
+      if (util.checkJson(securityQuestionAnswerUpdateModel)) {
+        return handle(util.message('securityQuestionAnswerUpdateModel'));
+      }
+      if (util.isNull(secondFactorAuthenticationToken)) {
+        return handle(util.message('secondFactorAuthenticationToken'));
+      }
+      var queryParameters = {};
+
+      queryParameters.secondFactorAuthenticationToken = secondFactorAuthenticationToken;
+      if (!util.isNull(rbaBrowserEmailTemplate)) {
+        queryParameters.rbaBrowserEmailTemplate = rbaBrowserEmailTemplate;
+      }
+      if (!util.isNull(rbaCityEmailTemplate)) {
+        queryParameters.rbaCityEmailTemplate = rbaCityEmailTemplate;
+      }
+      if (!util.isNull(rbaCountryEmailTemplate)) {
+        queryParameters.rbaCountryEmailTemplate = rbaCountryEmailTemplate;
+      }
+      if (!util.isNull(rbaIpEmailTemplate)) {
+        queryParameters.rbaIpEmailTemplate = rbaIpEmailTemplate;
+      }
+
+      var resourcePath = 'identity/v2/auth/login/2fa/verification/securityquestionanswer';
+
+      return util.xhttpCall('POST', resourcePath, queryParameters, securityQuestionAnswerUpdateModel, handle);
+    },
+  }
+  module.customObjectApi = {};
+  module.customObjectApi = {
     /**
     * This API is used to write information in JSON format to the custom object for the specified account.
     * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -1857,7 +2159,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete user custom object data
     * 6.1
     */
-    createCustomObjectByToken : function (accessToken, objectName,
+    createCustomObjectByToken: function (accessToken, objectName,
       payload, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -1887,7 +2189,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete user custom object data
     * 6.2
     */
-    updateCustomObjectByToken : function (accessToken, objectName,
+    updateCustomObjectByToken: function (accessToken, objectName,
       objectRecordId, payload, updateType, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -1920,7 +2222,7 @@ var LoginRadiusSDK = (function() {
     * @return Complete user CustomObject data
     * 6.3
     */
-    getCustomObjectByToken : function (accessToken, objectName, handle) {
+    getCustomObjectByToken: function (accessToken, objectName, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -1944,7 +2246,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete user custom object data
     * 6.4
     */
-    getCustomObjectByRecordIDAndToken : function (accessToken, objectName,
+    getCustomObjectByRecordIDAndToken: function (accessToken, objectName,
       objectRecordId, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -1972,7 +2274,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Delete Request
     * 6.5
     */
-    deleteCustomObjectByToken : function (accessToken, objectName,
+    deleteCustomObjectByToken: function (accessToken, objectName,
       objectRecordId, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -1991,10 +2293,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/customobject/' + objectRecordId;
 
       return util.xhttpCall('DELETE', resourcePath, queryParameters, {}, handle);
-    }, 
-  }  
-  module.customRegistrationDataApi = {};  
-  module.customRegistrationDataApi = { 
+    },
+  }
+  module.customRegistrationDataApi = {};
+  module.customRegistrationDataApi = {
     /**
     * This API is used to retrieve dropdown data.
     * @param {type} Type of the Datasource
@@ -2004,7 +2306,7 @@ var LoginRadiusSDK = (function() {
     * @return Complete user Registration data
     * 7.1
     */
-    authGetRegistrationData : function (type, limit,
+    authGetRegistrationData: function (type, limit,
       parentId, skip, handle) {
       if (util.isNull(type)) {
         return handle(util.message('type'));
@@ -2032,7 +2334,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 7.2
     */
-    validateRegistrationDataCode : function (code, recordId, handle) {
+    validateRegistrationDataCode: function (code, recordId, handle) {
       if (util.isNull(code)) {
         return handle(util.message('code'));
       }
@@ -2049,10 +2351,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/registrationdata/validatecode';
 
       return util.xhttpCall('POST', resourcePath, queryParameters, bodyParameters, handle);
-    }, 
-  }  
-  module.smartLoginApi = {};  
-  module.smartLoginApi = { 
+    },
+  }
+  module.smartLoginApi = {};
+  module.smartLoginApi = {
     /**
     * This API verifies the provided token for Smart Login
     * @param {verificationToken} Verification token received in the email
@@ -2060,7 +2362,7 @@ var LoginRadiusSDK = (function() {
     * @return Complete verified response data
     * 8.4.1
     */
-    smartLoginTokenVerification : function (verificationToken, welcomeEmailTemplate, handle) {
+    smartLoginTokenVerification: function (verificationToken, welcomeEmailTemplate, handle) {
       if (util.isNull(verificationToken)) {
         return handle(util.message('verificationToken'));
       }
@@ -2085,7 +2387,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 9.17.1
     */
-    smartLoginByEmail : function (clientGuid, email,
+    smartLoginByEmail: function (clientGuid, email,
       redirectUrl, smartLoginEmailTemplate, welcomeEmailTemplate, handle) {
       if (util.isNull(clientGuid)) {
         return handle(util.message('clientGuid'));
@@ -2121,7 +2423,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 9.17.2
     */
-    smartLoginByUserName : function (clientGuid, username,
+    smartLoginByUserName: function (clientGuid, username,
       redirectUrl, smartLoginEmailTemplate, welcomeEmailTemplate, handle) {
       if (util.isNull(clientGuid)) {
         return handle(util.message('clientGuid'));
@@ -2154,7 +2456,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.21.1
     */
-    smartLoginPing : function (clientGuid, fields, handle) {
+    smartLoginPing: function (clientGuid, fields, handle) {
       if (util.isNull(clientGuid)) {
         return handle(util.message('clientGuid'));
       }
@@ -2168,10 +2470,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/login/smartlogin/ping';
 
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
-    }, 
-  }  
-  module.phoneAuthenticationApi = {};  
-  module.phoneAuthenticationApi = { 
+    },
+  }
+  module.phoneAuthenticationApi = {};
+  module.phoneAuthenticationApi = {
     /**
     * This API retrieves a copy of the user data based on the Phone
     * @param {phoneAuthenticationModel} Model Class containing Definition of payload for PhoneAuthenticationModel API
@@ -2181,7 +2483,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.2.3
     */
-    loginByPhone : function (phoneAuthenticationModel, fields,
+    loginByPhone: function (phoneAuthenticationModel, fields,
       loginUrl, smsTemplate, handle) {
       if (util.checkJson(phoneAuthenticationModel)) {
         return handle(util.message('phoneAuthenticationModel'));
@@ -2209,7 +2511,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing Validation Data and SMS Data
     * 10.4
     */
-    forgotPasswordByPhoneOTP : function (phone, smsTemplate, handle) {
+    forgotPasswordByPhoneOTP: function (phone, smsTemplate, handle) {
       if (util.isNull(phone)) {
         return handle(util.message('phone'));
       }
@@ -2232,7 +2534,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 10.5
     */
-    resetPasswordByPhoneOTP : function (resetPasswordByOTPModel, handle) {
+    resetPasswordByPhoneOTP: function (resetPasswordByOTPModel, handle) {
       if (util.checkJson(resetPasswordByOTPModel)) {
         return handle(util.message('resetPasswordByOTPModel'));
       }
@@ -2252,7 +2554,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 11.1.1
     */
-    phoneVerificationByOTP : function (otp, phone,
+    phoneVerificationByOTP: function (otp, phone,
       fields, smsTemplate, handle) {
       if (util.isNull(otp)) {
         return handle(util.message('otp'));
@@ -2285,7 +2587,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 11.1.2
     */
-    phoneVerificationOTPByAccessToken : function (accessToken, otp,
+    phoneVerificationOTPByAccessToken: function (accessToken, otp,
       smsTemplate, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -2312,7 +2614,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing Validation Data and SMS Data
     * 11.2.1
     */
-    phoneResendVerificationOTP : function (phone, smsTemplate, handle) {
+    phoneResendVerificationOTP: function (phone, smsTemplate, handle) {
       if (util.isNull(phone)) {
         return handle(util.message('phone'));
       }
@@ -2337,7 +2639,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing Validation Data and SMS Data
     * 11.2.2
     */
-    phoneResendVerificationOTPByToken : function (accessToken, phone,
+    phoneResendVerificationOTPByToken: function (accessToken, phone,
       smsTemplate, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -2367,7 +2669,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing Validation Data and SMS Data
     * 11.5
     */
-    updatePhoneNumber : function (accessToken, phone,
+    updatePhoneNumber: function (accessToken, phone,
       smsTemplate, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -2395,7 +2697,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition Complete ExistResponse data
     * 11.6
     */
-    checkPhoneNumberAvailability : function (phone, handle) {
+    checkPhoneNumberAvailability: function (phone, handle) {
       if (util.isNull(phone)) {
         return handle(util.message('phone'));
       }
@@ -2413,7 +2715,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Delete Request
     * 11.7
     */
-    removePhoneIDByAccessToken : function (accessToken, handle) {
+    removePhoneIDByAccessToken: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -2437,7 +2739,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation, UserProfile data and Access Token
     * 17.1.2
     */
-    userRegistrationByPhone : function (authUserRegistrationModel, sott,
+    userRegistrationByPhone: function (authUserRegistrationModel, sott,
       fields, options, smsTemplate, verificationUrl, welcomeEmailTemplate, handle) {
       if (util.checkJson(authUserRegistrationModel)) {
         return handle(util.message('authUserRegistrationModel'));
@@ -2467,10 +2769,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/register';
 
       return util.xhttpCall('POST', resourcePath, queryParameters, authUserRegistrationModel, handle);
-    }, 
-  }  
-  module.riskBasedAuthenticationApi = {};  
-  module.riskBasedAuthenticationApi = { 
+    },
+  }
+  module.riskBasedAuthenticationApi = {};
+  module.riskBasedAuthenticationApi = {
     /**
     * This API retrieves a copy of the user data based on the Email
     * @param {emailAuthenticationModel} Model Class containing Definition of payload for Email Authentication API
@@ -2494,7 +2796,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.2.4
     */
-    rbaLoginByEmail : function (emailAuthenticationModel, emailTemplate,
+    rbaLoginByEmail: function (emailAuthenticationModel, emailTemplate,
       fields, loginUrl, passwordDelegation, passwordDelegationApp, rbaBrowserEmailTemplate,
       rbaBrowserSmsTemplate, rbaCityEmailTemplate, rbaCitySmsTemplate, rbaCountryEmailTemplate,
       rbaCountrySmsTemplate, rbaIpEmailTemplate, rbaIpSmsTemplate, rbaOneclickEmailTemplate,
@@ -2583,7 +2885,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.2.5
     */
-    rbaLoginByUserName : function (userNameAuthenticationModel, emailTemplate,
+    rbaLoginByUserName: function (userNameAuthenticationModel, emailTemplate,
       fields, loginUrl, passwordDelegation, passwordDelegationApp, rbaBrowserEmailTemplate,
       rbaBrowserSmsTemplate, rbaCityEmailTemplate, rbaCitySmsTemplate, rbaCountryEmailTemplate,
       rbaCountrySmsTemplate, rbaIpEmailTemplate, rbaIpSmsTemplate, rbaOneclickEmailTemplate,
@@ -2672,7 +2974,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.2.6
     */
-    rbaLoginByPhone : function (phoneAuthenticationModel, emailTemplate,
+    rbaLoginByPhone: function (phoneAuthenticationModel, emailTemplate,
       fields, loginUrl, passwordDelegation, passwordDelegationApp, rbaBrowserEmailTemplate,
       rbaBrowserSmsTemplate, rbaCityEmailTemplate, rbaCitySmsTemplate, rbaCountryEmailTemplate,
       rbaCountrySmsTemplate, rbaIpEmailTemplate, rbaIpSmsTemplate, rbaOneclickEmailTemplate,
@@ -2737,10 +3039,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/login';
 
       return util.xhttpCall('POST', resourcePath, queryParameters, phoneAuthenticationModel, handle);
-    }, 
-  }  
-  module.passwordLessLoginApi = {};  
-  module.passwordLessLoginApi = { 
+    },
+  }
+  module.passwordLessLoginApi = {};
+  module.passwordLessLoginApi = {
     /**
     * This API verifies an account by OTP and allows the customer to login.
     * @param {passwordLessLoginOtpModel} Model Class containing Definition of payload for PasswordLessLoginOtpModel API
@@ -2749,7 +3051,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.6
     */
-    passwordlessLoginPhoneVerification : function (passwordLessLoginOtpModel, fields,
+    passwordlessLoginPhoneVerification: function (passwordLessLoginOtpModel, fields,
       smsTemplate, handle) {
       if (util.checkJson(passwordLessLoginOtpModel)) {
         return handle(util.message('passwordLessLoginOtpModel'));
@@ -2774,7 +3076,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing Definition of SMS Data
     * 9.15
     */
-    passwordlessLoginByPhone : function (phone, smsTemplate, handle) {
+    passwordlessLoginByPhone: function (phone, smsTemplate, handle) {
       if (util.isNull(phone)) {
         return handle(util.message('phone'));
       }
@@ -2797,7 +3099,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 9.18.1
     */
-    passwordlessLoginByEmail : function (email, passwordLessLoginTemplate,
+    passwordlessLoginByEmail: function (email, passwordLessLoginTemplate,
       verificationUrl, handle) {
       if (util.isNull(email)) {
         return handle(util.message('email'));
@@ -2824,7 +3126,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 9.18.2
     */
-    passwordlessLoginByUserName : function (username, passwordLessLoginTemplate,
+    passwordlessLoginByUserName: function (username, passwordLessLoginTemplate,
       verificationUrl, handle) {
       if (util.isNull(username)) {
         return handle(util.message('username'));
@@ -2851,7 +3153,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.19
     */
-    passwordlessLoginVerification : function (verificationToken, fields,
+    passwordlessLoginVerification: function (verificationToken, fields,
       welcomeEmailTemplate, handle) {
       if (util.isNull(verificationToken)) {
         return handle(util.message('verificationToken'));
@@ -2871,13 +3173,13 @@ var LoginRadiusSDK = (function() {
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
     },
     /**
-    * 
-    * @param {passwordLessLoginByEmailAndOtpModel} 
-    * @param {fields} 
+    * This API is used to verify the otp sent to the email when doing a passwordless login.
+    * @param {passwordLessLoginByEmailAndOtpModel} payload
+    * @param {fields} Fields
     * @return Response containing User Profile Data and access token
     * 9.23
     */
-    passwordlessLoginVerificationByEmailAndOTP : function (passwordLessLoginByEmailAndOtpModel, fields, handle) {
+    passwordlessLoginVerificationByEmailAndOTP: function (passwordLessLoginByEmailAndOtpModel, fields, handle) {
       if (util.checkJson(passwordLessLoginByEmailAndOtpModel)) {
         return handle(util.message('passwordLessLoginByEmailAndOtpModel'));
       }
@@ -2892,13 +3194,13 @@ var LoginRadiusSDK = (function() {
       return util.xhttpCall('POST', resourcePath, queryParameters, passwordLessLoginByEmailAndOtpModel, handle);
     },
     /**
-    * 
-    * @param {passwordLessLoginByUserNameAndOtpModel} 
-    * @param {fields} 
+    * This API is used to verify the otp sent to the email when doing a passwordless login.
+    * @param {passwordLessLoginByUserNameAndOtpModel} payload
+    * @param {fields} Fields
     * @return Response containing User Profile Data and access token
     * 9.24
     */
-    passwordlessLoginVerificationByUserNameAndOTP : function (passwordLessLoginByUserNameAndOtpModel, fields, handle) {
+    passwordlessLoginVerificationByUserNameAndOTP: function (passwordLessLoginByUserNameAndOtpModel, fields, handle) {
       if (util.checkJson(passwordLessLoginByUserNameAndOtpModel)) {
         return handle(util.message('passwordLessLoginByUserNameAndOtpModel'));
       }
@@ -2911,10 +3213,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/login/passwordlesslogin/username/verifyotp';
 
       return util.xhttpCall('POST', resourcePath, queryParameters, passwordLessLoginByUserNameAndOtpModel, handle);
-    }, 
-  }  
-  module.pinAuthenticationApi = {};  
-  module.pinAuthenticationApi = { 
+    },
+  }
+  module.pinAuthenticationApi = {};
+  module.pinAuthenticationApi = {
     /**
     * This API is used to login a user by pin and session token.
     * @param {loginByPINModel} Model Class containing Definition of payload for LoginByPin API
@@ -2922,7 +3224,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 9.22
     */
-    pinLogin : function (loginByPINModel, sessionToken, handle) {
+    pinLogin: function (loginByPINModel, sessionToken, handle) {
       if (util.checkJson(loginByPINModel)) {
         return handle(util.message('loginByPINModel'));
       }
@@ -2945,7 +3247,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.1
     */
-    sendForgotPINEmailByEmail : function (forgotPINLinkByEmailModel, emailTemplate,
+    sendForgotPINEmailByEmail: function (forgotPINLinkByEmailModel, emailTemplate,
       resetPINUrl, handle) {
       if (util.checkJson(forgotPINLinkByEmailModel)) {
         return handle(util.message('forgotPINLinkByEmailModel'));
@@ -2971,7 +3273,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.2
     */
-    sendForgotPINEmailByUsername : function (forgotPINLinkByUserNameModel, emailTemplate,
+    sendForgotPINEmailByUsername: function (forgotPINLinkByUserNameModel, emailTemplate,
       resetPINUrl, handle) {
       if (util.checkJson(forgotPINLinkByUserNameModel)) {
         return handle(util.message('forgotPINLinkByUserNameModel'));
@@ -2995,7 +3297,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.3
     */
-    resetPINByResetToken : function (resetPINByResetToken, handle) {
+    resetPINByResetToken: function (resetPINByResetToken, handle) {
       if (util.checkJson(resetPINByResetToken)) {
         return handle(util.message('resetPINByResetToken'));
       }
@@ -3012,7 +3314,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.4
     */
-    resetPINByEmailAndSecurityAnswer : function (resetPINBySecurityQuestionAnswerAndEmailModel, handle) {
+    resetPINByEmailAndSecurityAnswer: function (resetPINBySecurityQuestionAnswerAndEmailModel, handle) {
       if (util.checkJson(resetPINBySecurityQuestionAnswerAndEmailModel)) {
         return handle(util.message('resetPINBySecurityQuestionAnswerAndEmailModel'));
       }
@@ -3029,7 +3331,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.5
     */
-    resetPINByUsernameAndSecurityAnswer : function (resetPINBySecurityQuestionAnswerAndUsernameModel, handle) {
+    resetPINByUsernameAndSecurityAnswer: function (resetPINBySecurityQuestionAnswerAndUsernameModel, handle) {
       if (util.checkJson(resetPINBySecurityQuestionAnswerAndUsernameModel)) {
         return handle(util.message('resetPINBySecurityQuestionAnswerAndUsernameModel'));
       }
@@ -3046,7 +3348,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.6
     */
-    resetPINByPhoneAndSecurityAnswer : function (resetPINBySecurityQuestionAnswerAndPhoneModel, handle) {
+    resetPINByPhoneAndSecurityAnswer: function (resetPINBySecurityQuestionAnswerAndPhoneModel, handle) {
       if (util.checkJson(resetPINBySecurityQuestionAnswerAndPhoneModel)) {
         return handle(util.message('resetPINBySecurityQuestionAnswerAndPhoneModel'));
       }
@@ -3064,7 +3366,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing Validation Data and SMS Data
     * 42.7
     */
-    sendForgotPINSMSByPhone : function (forgotPINOtpByPhoneModel, smsTemplate, handle) {
+    sendForgotPINSMSByPhone: function (forgotPINOtpByPhoneModel, smsTemplate, handle) {
       if (util.checkJson(forgotPINOtpByPhoneModel)) {
         return handle(util.message('forgotPINOtpByPhoneModel'));
       }
@@ -3085,7 +3387,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.8
     */
-    changePINByAccessToken : function (accessToken, changePINModel, handle) {
+    changePINByAccessToken: function (accessToken, changePINModel, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3106,7 +3408,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.9
     */
-    resetPINByPhoneAndOtp : function (resetPINByPhoneAndOTPModel, handle) {
+    resetPINByPhoneAndOtp: function (resetPINByPhoneAndOTPModel, handle) {
       if (util.checkJson(resetPINByPhoneAndOTPModel)) {
         return handle(util.message('resetPINByPhoneAndOTPModel'));
       }
@@ -3123,7 +3425,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.10
     */
-    resetPINByEmailAndOtp : function (resetPINByEmailAndOtpModel, handle) {
+    resetPINByEmailAndOtp: function (resetPINByEmailAndOtpModel, handle) {
       if (util.checkJson(resetPINByEmailAndOtpModel)) {
         return handle(util.message('resetPINByEmailAndOtpModel'));
       }
@@ -3140,7 +3442,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 42.11
     */
-    resetPINByUsernameAndOtp : function (resetPINByUsernameAndOtpModel, handle) {
+    resetPINByUsernameAndOtp: function (resetPINByUsernameAndOtpModel, handle) {
       if (util.checkJson(resetPINByUsernameAndOtpModel)) {
         return handle(util.message('resetPINByUsernameAndOtpModel'));
       }
@@ -3158,7 +3460,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 42.12
     */
-    setPINByPinAuthToken : function (pINRequiredModel, pinAuthToken, handle) {
+    setPINByPinAuthToken: function (pINRequiredModel, pinAuthToken, handle) {
       if (util.checkJson(pINRequiredModel)) {
         return handle(util.message('pINRequiredModel'));
       }
@@ -3179,7 +3481,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Validation data
     * 44.1
     */
-    inValidatePinSessionToken : function (sessionToken, handle) {
+    inValidatePinSessionToken: function (sessionToken, handle) {
       if (util.isNull(sessionToken)) {
         return handle(util.message('sessionToken'));
       }
@@ -3190,10 +3492,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/session_token/invalidate';
 
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
-    }, 
-  }  
-  module.reAuthenticationApi = {};  
-  module.reAuthenticationApi = { 
+    },
+  }
+  module.reAuthenticationApi = {};
+  module.reAuthenticationApi = {
     /**
     * This API is used to trigger the Multi-Factor Autentication workflow for the provided access token
     * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
@@ -3201,7 +3503,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Multi-Factor Authentication Settings data
     * 14.3
     */
-    mfaReAuthenticate : function (accessToken, smsTemplate2FA, handle) {
+    mfaReAuthenticate: function (accessToken, smsTemplate2FA, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3223,7 +3525,7 @@ var LoginRadiusSDK = (function() {
     * @return Complete user Multi-Factor Authentication Token data
     * 14.4
     */
-    mfaReAuthenticateByOTP : function (accessToken, reauthByOtpModel, handle) {
+    mfaReAuthenticateByOTP: function (accessToken, reauthByOtpModel, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3245,7 +3547,7 @@ var LoginRadiusSDK = (function() {
     * @return Complete user Multi-Factor Authentication Token data
     * 14.5
     */
-    mfaReAuthenticateByBackupCode : function (accessToken, reauthByBackupCodeModel, handle) {
+    mfaReAuthenticateByBackupCode: function (accessToken, reauthByBackupCodeModel, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3267,7 +3569,7 @@ var LoginRadiusSDK = (function() {
     * @return Complete user Multi-Factor Authentication Token data
     * 14.6
     */
-    mfaReAuthenticateByGoogleAuth : function (accessToken, reauthByGoogleAuthenticatorCodeModel, handle) {
+    mfaReAuthenticateByGoogleAuth: function (accessToken, reauthByGoogleAuthenticatorCodeModel, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3290,7 +3592,7 @@ var LoginRadiusSDK = (function() {
     * @return Complete user Multi-Factor Authentication Token data
     * 14.7
     */
-    mfaReAuthenticateByPassword : function (accessToken, passwordEventBasedAuthModelWithLockout,
+    mfaReAuthenticateByPassword: function (accessToken, passwordEventBasedAuthModelWithLockout,
       smsTemplate2FA, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -3317,7 +3619,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition response of MFA reauthentication
     * 42.13
     */
-    verifyPINAuthentication : function (accessToken, pINAuthEventBasedAuthModelWithLockout,
+    verifyPINAuthentication: function (accessToken, pINAuthEventBasedAuthModelWithLockout,
       smsTemplate2FA, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -3335,10 +3637,82 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/account/reauth/pin';
 
       return util.xhttpCall('PUT', resourcePath, queryParameters, pINAuthEventBasedAuthModelWithLockout, handle);
-    }, 
-  }  
-  module.nativeSocialApi = {};  
-  module.nativeSocialApi = { 
+    },
+    /**
+    * This API is used to validate the triggered MFA authentication flow with an Email OTP.
+    * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+    * @param {reauthByEmailOtpModel} payload
+    * @return Response containing Definition response of MFA reauthentication
+    * 42.14
+    */
+    reAuthValidateEmailOtp: function (accessToken, reauthByEmailOtpModel, handle) {
+      if (util.isNull(accessToken)) {
+        return handle(util.message('accessToken'));
+      }
+      if (util.checkJson(reauthByEmailOtpModel)) {
+        return handle(util.message('reauthByEmailOtpModel'));
+      }
+      var queryParameters = {};
+
+      queryParameters.access_token = accessToken;
+
+      var resourcePath = 'identity/v2/auth/account/reauth/2fa/otp/email/verify';
+
+      return util.xhttpCall('PUT', resourcePath, queryParameters, reauthByEmailOtpModel, handle);
+    },
+    /**
+    * This API is used to send the MFA Email OTP to the email for Re-authentication
+    * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+    * @param {emailId} EmailId
+    * @param {emailTemplate2FA} EmailTemplate2FA
+    * @return Response containing Definition of Complete Validation data
+    * 42.15
+    */
+    reAuthSendEmailOtp: function (accessToken, emailId,
+      emailTemplate2FA, handle) {
+      if (util.isNull(accessToken)) {
+        return handle(util.message('accessToken'));
+      }
+      if (util.isNull(emailId)) {
+        return handle(util.message('emailId'));
+      }
+      var queryParameters = {};
+
+      queryParameters.access_token = accessToken;
+      queryParameters.emailId = emailId;
+      if (!util.isNull(emailTemplate2FA)) {
+        queryParameters.emailTemplate2FA = emailTemplate2FA;
+      }
+
+      var resourcePath = 'identity/v2/auth/account/reauth/2fa/otp/email';
+
+      return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
+    },
+    /**
+    * This API is used to validate the triggered MFA re-authentication flow with security questions answers.
+    * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
+    * @param {securityQuestionAnswerUpdateModel} payload
+    * @return Response containing Definition response of MFA reauthentication
+    * 42.16
+    */
+    reAuthBySecurityQuestion: function (accessToken, securityQuestionAnswerUpdateModel, handle) {
+      if (util.isNull(accessToken)) {
+        return handle(util.message('accessToken'));
+      }
+      if (util.checkJson(securityQuestionAnswerUpdateModel)) {
+        return handle(util.message('securityQuestionAnswerUpdateModel'));
+      }
+      var queryParameters = {};
+
+      queryParameters.access_token = accessToken;
+
+      var resourcePath = 'identity/v2/auth/account/reauth/2fa/securityquestionanswer/verify';
+
+      return util.xhttpCall('POST', resourcePath, queryParameters, securityQuestionAnswerUpdateModel, handle);
+    },
+  }
+  module.nativeSocialApi = {};
+  module.nativeSocialApi = {
     /**
     * The API is used to get LoginRadius access token by sending Facebook's access token. It will be valid for the specific duration of time specified in the response.
     * @param {fbAccessToken} Facebook Access Token
@@ -3346,7 +3720,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.3
     */
-    getAccessTokenByFacebookAccessToken : function (fbAccessToken, socialAppName, handle) {
+    getAccessTokenByFacebookAccessToken: function (fbAccessToken, socialAppName, handle) {
       if (util.isNull(fbAccessToken)) {
         return handle(util.message('fbAccessToken'));
       }
@@ -3369,7 +3743,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.4
     */
-    getAccessTokenByTwitterAccessToken : function (twAccessToken, twTokenSecret,
+    getAccessTokenByTwitterAccessToken: function (twAccessToken, twTokenSecret,
       socialAppName, handle) {
       if (util.isNull(twAccessToken)) {
         return handle(util.message('twAccessToken'));
@@ -3398,7 +3772,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.5
     */
-    getAccessTokenByGoogleAccessToken : function (googleAccessToken, clientId,
+    getAccessTokenByGoogleAccessToken: function (googleAccessToken, clientId,
       refreshToken, socialAppName, handle) {
       if (util.isNull(googleAccessToken)) {
         return handle(util.message('googleAccessToken'));
@@ -3426,7 +3800,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.6
     */
-    getAccessTokenByGoogleJWTAccessToken : function (idToken, handle) {
+    getAccessTokenByGoogleJWTAccessToken: function (idToken, handle) {
       if (util.isNull(idToken)) {
         return handle(util.message('idToken'));
       }
@@ -3445,7 +3819,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.7
     */
-    getAccessTokenByLinkedinAccessToken : function (lnAccessToken, socialAppName, handle) {
+    getAccessTokenByLinkedinAccessToken: function (lnAccessToken, socialAppName, handle) {
       if (util.isNull(lnAccessToken)) {
         return handle(util.message('lnAccessToken'));
       }
@@ -3466,7 +3840,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.8
     */
-    getAccessTokenByFoursquareAccessToken : function (fsAccessToken, handle) {
+    getAccessTokenByFoursquareAccessToken: function (fsAccessToken, handle) {
       if (util.isNull(fsAccessToken)) {
         return handle(util.message('fsAccessToken'));
       }
@@ -3485,7 +3859,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.12
     */
-    getAccessTokenByAppleIdCode : function (code, socialAppName, handle) {
+    getAccessTokenByAppleIdCode: function (code, socialAppName, handle) {
       if (util.isNull(code)) {
         return handle(util.message('code'));
       }
@@ -3506,7 +3880,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.13
     */
-    getAccessTokenByWeChatCode : function (code, handle) {
+    getAccessTokenByWeChatCode: function (code, handle) {
       if (util.isNull(code)) {
         return handle(util.message('code'));
       }
@@ -3524,7 +3898,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.15
     */
-    getAccessTokenByVkontakteAccessToken : function (vkAccessToken, handle) {
+    getAccessTokenByVkontakteAccessToken: function (vkAccessToken, handle) {
       if (util.isNull(vkAccessToken)) {
         return handle(util.message('vkAccessToken'));
       }
@@ -3543,7 +3917,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete Token data
     * 20.16
     */
-    getAccessTokenByGoogleAuthCode : function (googleAuthcode, socialAppName, handle) {
+    getAccessTokenByGoogleAuthCode: function (googleAuthcode, socialAppName, handle) {
       if (util.isNull(googleAuthcode)) {
         return handle(util.message('googleAuthcode'));
       }
@@ -3557,17 +3931,17 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'api/v2/access_token/google';
 
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
-    }, 
-  }  
-  module.socialApi = {};  
-  module.socialApi = { 
+    },
+  }
+  module.socialApi = {};
+  module.socialApi = {
     /**
     * <b>Supported Providers:</b> Facebook, Google, Live, Vkontakte.<br><br> This API returns the photo albums associated with the passed in access tokens Social Profile.
     * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
     * @return Response Containing List of Album Data
     * 22.2.1
     */
-    getAlbums : function (accessToken, handle) {
+    getAlbums: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3586,7 +3960,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Model containing Albums with next cursor
     * 22.2.2
     */
-    getAlbumsWithCursor : function (accessToken, nextCursor, handle) {
+    getAlbumsWithCursor: function (accessToken, nextCursor, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3608,7 +3982,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing List of Audio Data
     * 24.2.1
     */
-    getAudios : function (accessToken, handle) {
+    getAudios: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3627,7 +4001,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Model containing Audio with next cursor
     * 24.2.2
     */
-    getAudiosWithCursor : function (accessToken, nextCursor, handle) {
+    getAudiosWithCursor: function (accessToken, nextCursor, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3649,7 +4023,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing List of CheckIn Data
     * 25.2.1
     */
-    getCheckIns : function (accessToken, handle) {
+    getCheckIns: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3668,7 +4042,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Model containing Checkins with next cursor
     * 25.2.2
     */
-    getCheckInsWithCursor : function (accessToken, nextCursor, handle) {
+    getCheckInsWithCursor: function (accessToken, nextCursor, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3691,7 +4065,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Contact Data with Cursor
     * 27.1
     */
-    getContacts : function (accessToken, nextCursor, handle) {
+    getContacts: function (accessToken, nextCursor, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3712,7 +4086,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing List of Events Data
     * 28.2.1
     */
-    getEvents : function (accessToken, handle) {
+    getEvents: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3731,7 +4105,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Model containing Events with next cursor
     * 28.2.2
     */
-    getEventsWithCursor : function (accessToken, nextCursor, handle) {
+    getEventsWithCursor: function (accessToken, nextCursor, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3753,7 +4127,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing List of Contacts Data
     * 29.2.1
     */
-    getFollowings : function (accessToken, handle) {
+    getFollowings: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3772,7 +4146,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Contact Data with Cursor
     * 29.2.2
     */
-    getFollowingsWithCursor : function (accessToken, nextCursor, handle) {
+    getFollowingsWithCursor: function (accessToken, nextCursor, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3794,7 +4168,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing List of Groups Data
     * 30.2.1
     */
-    getGroups : function (accessToken, handle) {
+    getGroups: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3813,7 +4187,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Model containing Groups with next cursor
     * 30.2.2
     */
-    getGroupsWithCursor : function (accessToken, nextCursor, handle) {
+    getGroupsWithCursor: function (accessToken, nextCursor, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3835,7 +4209,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing List of Likes Data
     * 31.2.1
     */
-    getLikes : function (accessToken, handle) {
+    getLikes: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3854,7 +4228,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Model containing Likes with next cursor
     * 31.2.2
     */
-    getLikesWithCursor : function (accessToken, nextCursor, handle) {
+    getLikesWithCursor: function (accessToken, nextCursor, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3876,7 +4250,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing List of Status Data
     * 32.1
     */
-    getMentions : function (accessToken, handle) {
+    getMentions: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3897,7 +4271,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete Validation data
     * 33.1
     */
-    postMessage : function (accessToken, message,
+    postMessage: function (accessToken, message,
       subject, to, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -3929,7 +4303,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Complete page data
     * 34.1
     */
-    getPage : function (accessToken, pageName, handle) {
+    getPage: function (accessToken, pageName, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3952,7 +4326,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing List of Photos Data
     * 35.1
     */
-    getPhotos : function (accessToken, albumId, handle) {
+    getPhotos: function (accessToken, albumId, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3974,7 +4348,7 @@ var LoginRadiusSDK = (function() {
     * @return Response Containing List of Posts Data
     * 36.1
     */
-    getPosts : function (accessToken, handle) {
+    getPosts: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -3999,7 +4373,7 @@ var LoginRadiusSDK = (function() {
     * @return Response conatining Definition of Validation and Short URL data
     * 37.2
     */
-    statusPosting : function (accessToken, caption,
+    statusPosting: function (accessToken, caption,
       description, imageurl, status, title, url,
       shorturl, handle) {
       if (util.isNull(accessToken)) {
@@ -4047,7 +4421,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete status data
     * 37.6
     */
-    trackableStatusPosting : function (accessToken, statusModel, handle) {
+    trackableStatusPosting: function (accessToken, statusModel, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -4074,7 +4448,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete status data
     * 37.7
     */
-    getTrackableStatusStats : function (accessToken, caption,
+    getTrackableStatusStats: function (accessToken, caption,
       description, imageurl, status, title, url, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -4112,35 +4486,13 @@ var LoginRadiusSDK = (function() {
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
     },
     /**
-    * The User Profile API is used to get social profile data from the user's social account after authentication.<br><br><b>Supported Providers:</b>  All
-    * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
-    * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
-    * @return Response containing Definition for Complete UserProfile data
-    * 38.1
-    */
-    getSocialUserProfile : function (accessToken, fields, handle) {
-      if (util.isNull(accessToken)) {
-        return handle(util.message('accessToken'));
-      }
-      var queryParameters = {};
-
-      queryParameters.access_token = accessToken;
-      if (!util.isNull(fields)) {
-        queryParameters.fields = fields;
-      }
-
-      var resourcePath = 'api/v2/userprofile';
-
-      return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
-    },
-    /**
     * The User Profile API is used to get the latest updated social profile data from the user's social account after authentication. The social profile will be retrieved via oAuth and OpenID protocols. The data is normalized into LoginRadius' standard data format. This API should be called using the access token retrieved from the refresh access token API.
     * @param {accessToken} Uniquely generated identifier key by LoginRadius that is activated after successful authentication.
     * @param {fields} The fields parameter filters the API response so that the response only includes a specific set of fields
     * @return Response containing Definition for Complete UserProfile data
     * 38.2
     */
-    getRefreshedSocialUserProfile : function (accessToken, fields, handle) {
+    getRefreshedSocialUserProfile: function (accessToken, fields, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -4162,7 +4514,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition of Video Data with Cursor
     * 39.2
     */
-    getVideos : function (accessToken, nextCursor, handle) {
+    getVideos: function (accessToken, nextCursor, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -4177,10 +4529,10 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'api/v2/video';
 
       return util.xhttpCall('GET', resourcePath, queryParameters, {}, handle);
-    }, 
-  }  
-  module.consentManagementApi = {};  
-  module.consentManagementApi = { 
+    },
+  }
+  module.consentManagementApi = {};
+  module.consentManagementApi = {
     /**
     * This API is to submit consent form using consent token.
     * @param {consentToken} The consent token received after login error 1226 
@@ -4188,7 +4540,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing User Profile Data and access token
     * 43.1
     */
-    submitConsentByConsentToken : function (consentToken, consentSubmitModel, handle) {
+    submitConsentByConsentToken: function (consentToken, consentSubmitModel, handle) {
       if (util.isNull(consentToken)) {
         return handle(util.message('consentToken'));
       }
@@ -4209,7 +4561,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing consent logs
     * 43.2
     */
-    getConsentLogs : function (accessToken, handle) {
+    getConsentLogs: function (accessToken, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -4228,7 +4580,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing Definition for Complete profile data
     * 43.3
     */
-    submitConsentByAccessToken : function (accessToken, consentSubmitModel, handle) {
+    submitConsentByAccessToken: function (accessToken, consentSubmitModel, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -4251,7 +4603,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing consent profile
     * 43.4
     */
-    verifyConsentByAccessToken : function (accessToken, event,
+    verifyConsentByAccessToken: function (accessToken, event,
       isCustom, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
@@ -4276,7 +4628,7 @@ var LoginRadiusSDK = (function() {
     * @return Response containing consent profile
     * 43.5
     */
-    updateConsentProfileByAccessToken : function (accessToken, consentUpdateModel, handle) {
+    updateConsentProfileByAccessToken: function (accessToken, consentUpdateModel, handle) {
       if (util.isNull(accessToken)) {
         return handle(util.message('accessToken'));
       }
@@ -4290,7 +4642,7 @@ var LoginRadiusSDK = (function() {
       var resourcePath = 'identity/v2/auth/consent';
 
       return util.xhttpCall('PUT', resourcePath, queryParameters, consentUpdateModel, handle);
-    }, 
+    },
   }
   /**
    * The Access Token API is used to get the LoginRadius access token after authentication. It will be valid for the specific duration of time specified in the response.
@@ -4299,7 +4651,7 @@ var LoginRadiusSDK = (function() {
    * @public
    * @param handle {CallbackHandler} callback handler, invoke after getting Responce from LoginRadius
    */
-  module.getToken = function() {
+  module.getToken = function () {
     return getBrowserStorage(token);
   };
 
@@ -4307,7 +4659,7 @@ var LoginRadiusSDK = (function() {
    * Checks if the API Key is available in the browser's storage for API Calls that require it
    *
    */
-  module.getApiKey = function() {
+  module.getApiKey = function () {
     if (getBrowserStorage("lrApiKey")) {
       return getBrowserStorage("lrApiKey");
     } else {
@@ -4338,7 +4690,7 @@ var LoginRadiusSDK = (function() {
   */
   util.checkJson = function (input) {
     return (input === null || input === undefined ||
-  Array.isArray(input) || typeof input !== 'object');
+      Array.isArray(input) || typeof input !== 'object');
   };
 
   /**
@@ -4357,7 +4709,7 @@ var LoginRadiusSDK = (function() {
   * @param {String} message message to be logged
   * @description This funtion is used to log error/warning message in browser if debug mode has been made true.
   */
- util.log = function(message) {
+  util.log = function (message) {
     if (config.debugMode) {
       if (typeof console !== 'undefined') {
         console.error(message);
@@ -4373,60 +4725,60 @@ var LoginRadiusSDK = (function() {
    * @param queryParameters
    * @param handle {CallbackHandler} callback handler, invoke after getting Responce from LoginRadius
    */
-  util.xhttpCall = function(method, path, queryParameters, model, handle) {
+  util.xhttpCall = function (method, path, queryParameters, model, handle) {
     if (config.apiKey) {
-     
-        if(path.indexOf('/v2/access_token/') != -1){
-          queryParameters.key = config.apiKey;
-        }else{
-          queryParameters.ApiKey = config.apiKey;
-        }
-        
-        var xhttpcall = new XMLHttpRequest();
-        xhttpcall.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            var jsonParse = JSON.parse(xhttpcall.responseText);
-            if(jsonParse && jsonParse.ErrorCode){
-              handle(jsonParse);
-            }else{
-              handle('', jsonParse);
-            }
-          }else if (this.readyState == 4 && this.status == 429) {
-            handle(errorMsgs[429])
-          }
-        };
-        if (path == 'ciam/appinfo') {
-          apiDomain = "https://config.lrcontent.com";
-        }
-        if(queryParameters.access_token){ 
-          var access_token = queryParameters.access_token;
-          delete queryParameters.access_token;
-        }
-        if (queryParameters.sott) {
-          var sott = queryParameters.sott;
-          delete queryParameters.sott;
-        }
-        
-        xhttpcall.open(method, apiDomain +"/"+ path + "?" + util.makeQuerySting(queryParameters));
-        if(access_token){ 
-          xhttpcall.setRequestHeader('authorization', 'Bearer ' + access_token);
-          access_token = "";
-        }
-        if (sott) {
-          xhttpcall.setRequestHeader('X-LoginRadius-Sott', sott);
-          sott = "";
-        }
-        if(config.originIp){
-          xhttpcall.setRequestHeader("X-Origin-IP", config.originIp);     
-        }
-        xhttpcall.setRequestHeader("Content-type", "application/json");
-        xhttpcall.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhttpcall.onerror = function() {
-          handle(errorMsgs[1000])
-        };
-        xhttpcall.send(JSON.stringify(model));
+
+      if (path.indexOf('/v2/access_token/') != -1) {
+        queryParameters.key = config.apiKey;
+      } else {
+        queryParameters.ApiKey = config.apiKey;
       }
-    else{
+
+      var xhttpcall = new XMLHttpRequest();
+      xhttpcall.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var jsonParse = JSON.parse(xhttpcall.responseText);
+          if (jsonParse && jsonParse.ErrorCode) {
+            handle(jsonParse);
+          } else {
+            handle('', jsonParse);
+          }
+        } else if (this.readyState == 4 && this.status == 429) {
+          handle(errorMsgs[429])
+        }
+      };
+      if (path == 'ciam/appinfo') {
+        apiDomain = "https://config.lrcontent.com";
+      }
+      if (queryParameters.access_token) {
+        var access_token = queryParameters.access_token;
+        delete queryParameters.access_token;
+      }
+      if (queryParameters.sott) {
+        var sott = queryParameters.sott;
+        delete queryParameters.sott;
+      }
+
+      xhttpcall.open(method, apiDomain + "/" + path + "?" + util.makeQuerySting(queryParameters));
+      if (access_token) {
+        xhttpcall.setRequestHeader('authorization', 'Bearer ' + access_token);
+        access_token = "";
+      }
+      if (sott) {
+        xhttpcall.setRequestHeader('X-LoginRadius-Sott', sott);
+        sott = "";
+      }
+      if (config.originIp) {
+        xhttpcall.setRequestHeader("X-Origin-IP", config.originIp);
+      }
+      xhttpcall.setRequestHeader("Content-type", "application/json");
+      xhttpcall.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+      xhttpcall.onerror = function () {
+        handle(errorMsgs[1000])
+      };
+      xhttpcall.send(JSON.stringify(model));
+
+    } else {
       util.log('Please set the LoginRadius ApiKey');
       handle(errorMsgs[1000])
     }
@@ -4437,8 +4789,8 @@ var LoginRadiusSDK = (function() {
    */
   util.makeQuerySting = function (object) {
     var qstring = [];
-    for(var row in object){
-      qstring.push(encodeURIComponent(row)+"="+encodeURIComponent(object[row]));
+    for (var row in object) {
+      qstring.push(encodeURIComponent(row) + "=" + encodeURIComponent(object[row]));
     }
     return qstring.join("&");
   }
@@ -4449,7 +4801,7 @@ var LoginRadiusSDK = (function() {
    * @param element
    * @param handle
    */
-  util.addEvent = function(type, element, handle) {
+  util.addEvent = function (type, element, handle) {
     var elements = [];
     if (element instanceof Array) {
       elements = element;
@@ -4458,7 +4810,7 @@ var LoginRadiusSDK = (function() {
     }
     for (var i = 0; i < elements.length; i++) {
       if (elements[i].attachEvent) {
-        elements[i].attachEvent("on" + type, function(e) {
+        elements[i].attachEvent("on" + type, function (e) {
           handle(e);
         });
       } else if (elements[i].addEventListener) {
@@ -4469,11 +4821,11 @@ var LoginRadiusSDK = (function() {
   // window event handler
   util.addEvent("message", window, receiveToken);
 
-  var loginradiushtml5passToken = function(tok) {
+  var loginradiushtml5passToken = function (tok) {
     sessionStorage.setItem(token, tok);
     module.isauthenticated = true;
 
-    var intVal = setInterval(function() {
+    var intVal = setInterval(function () {
       if (module.onlogin) {
         module.onlogin();
         clearInterval(intVal);
@@ -4504,7 +4856,7 @@ var LoginRadiusSDK = (function() {
       window.loginradiushtml5passToken(lrToken);
     }
   }
-  module.initSDK = function(settings) {
+  module.initSDK = function (settings) {
     config.apiKey = settings.apiKey;
     config.debugMode = settings.debugMode || false;
     config.originIp = settings.originIp;
