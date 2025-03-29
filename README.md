@@ -57,7 +57,7 @@ var sdkoptions = {
 ## HTML
 
 ```
-<script src="LoginRadiusV2SDK.11.2.0.js" type="text/javascript"></script>
+<script src="LoginRadiusV2SDK.11.3.0.js" type="text/javascript"></script>
 ```
 
 ## Getting the Access Token
