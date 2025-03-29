@@ -1,5 +1,39 @@
 # LoginRadius HTML5 SDK Change Log
 
+# Version 11.3.0
+Release on **March 29, 2025**
+
+## Removed (Deprecated) APIs:
+- `authGetRegistrationData`
+- `validateRegistrationDataCode`
+- `getAccessTokenByVkontakteAccessToken`
+- `getAlbums`
+- `getAlbumsWithCursor`
+- `getAudios`
+- `getAudiosWithCursor`
+- `getCheckIns`
+- `getCheckInsWithCursor`
+- `getContacts`
+- `getEvents`
+- `getEventsWithCursor`
+- `getFollowings`
+- `getFollowingsWithCursor`
+- `getGroups`
+- `getGroupsWithCursor`
+- `getLikes`
+- `getLikesWithCursor`
+- `getMentions`
+- `postMessage`
+- `getPage`
+- `getPhotos`
+- `getPosts`
+- `statusPosting`
+- `trackableStatusPosting`
+- `getTrackableStatusStats`
+- `getVideos`
+- `getRefreshedSocialUserProfile`
+
+
 # Version 11.2.0
 Release on **September 15, 2021**
 
