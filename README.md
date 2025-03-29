@@ -4155,30 +4155,6 @@ var code = "<code>"; //Required
   
   
  
-<h6 id="GetAccessTokenByVkontakteAccessToken-get-"> Access Token via Vkontakte Token (GET)</h6>
-
- The API is used to get LoginRadius access token by sending Vkontakte's access token. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-vkontakte-token)
-
- 
- 
-
- ```js
-
-var vkAccessToken = "<vkAccessToken>"; //Required
-
- LoginRadiusSDK.nativeSocialApi.getAccessTokenByVkontakteAccessToken(vkAccessToken, function(error, data){
-    if(error){
-      console.log(error);
-	  return;
-	}
-	console.log(data);
- });
-
- ```
- 
-  
-  
- 
 <h6 id="GetAccessTokenByGoogleAuthCode-get-"> Access Token via Google AuthCode (GET)</h6>
 
  The API is used to get LoginRadius access token by sending Google's AuthCode. It will be valid for the specific duration of time specified in the response.  [More Info](https://www.loginradius.com/docs/api/v2/customer-identity-api/social-login/native-social-login-api/access-token-via-google-auth-code)
