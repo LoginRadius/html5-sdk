@@ -132,7 +132,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -166,7 +166,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -194,7 +194,7 @@ var unlockProfileModel ={
  
  
 
- ```
+ ```js
 
 
 var emailVerificationByOtpModel ={ 
@@ -225,7 +225,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var resetPasswordBySecurityAnswerAndEmailModel ={ 
@@ -254,7 +254,7 @@ var resetPasswordBySecurityAnswerAndEmailModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPasswordBySecurityAnswerAndPhoneModel ={ 
@@ -283,7 +283,7 @@ var resetPasswordBySecurityAnswerAndPhoneModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPasswordBySecurityAnswerAndUserNameModel ={ 
@@ -312,7 +312,7 @@ var resetPasswordBySecurityAnswerAndUserNameModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPasswordByResetTokenModel ={ 
@@ -340,7 +340,7 @@ var resetPasswordByResetTokenModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPasswordByEmailAndOtpModel ={ 
@@ -369,7 +369,7 @@ var resetPasswordByEmailAndOtpModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPasswordByUserNameModel ={ 
@@ -398,7 +398,7 @@ var resetPasswordByUserNameModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var newPassword = "<newPassword>"; //Required
@@ -424,7 +424,7 @@ var oldPassword = "<oldPassword>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var username = "<username>"; //Required
@@ -449,7 +449,7 @@ var username = "<username>"; //Required
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
@@ -475,7 +475,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var email = "<email>"; //Required
@@ -503,7 +503,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var emailAuthenticationModel ={ 
@@ -535,7 +535,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var userNameAuthenticationModel ={ 
@@ -567,7 +567,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var resetPasswordUrl = "<resetPasswordUrl>"; //Required
@@ -593,7 +593,7 @@ var emailTemplate = "<emailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var candidateToken = "<candidateToken>"; //Required
@@ -618,7 +618,7 @@ var candidateToken = "<candidateToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var clientGuid = "<clientGuid>"; //Required
@@ -643,7 +643,7 @@ var clientGuid = "<clientGuid>"; //Required
  
  
 
- ```
+ ```js
 
 
 var authUserRegistrationModel ={ 
@@ -682,7 +682,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var authUserRegistrationModelWithCaptcha ={ 
@@ -722,7 +722,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 
@@ -746,7 +746,7 @@ var email = "<email>"; //Required
  
  
 
- ```
+ ```js
 
 var userName = "<userName>"; //Required
 
@@ -770,7 +770,7 @@ var userName = "<userName>"; //Required
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 
@@ -794,7 +794,7 @@ var phone = "<phone>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -818,7 +818,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -842,7 +842,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var preventRefresh = true; //Optional
@@ -867,7 +867,7 @@ var preventRefresh = true; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -891,7 +891,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
@@ -919,7 +919,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
@@ -944,7 +944,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var deletetoken = "<deletetoken>"; //Required
 
@@ -965,7 +965,7 @@ This API is used to get a user's profile using the clientGuid parameter if no ca
  
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var emailTemplate = "<emailTemplate>"; //Optional
@@ -991,7 +991,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 
@@ -1015,7 +1015,7 @@ var email = "<email>"; //Required
  
  
 
- ```
+ ```js
 
 var verificationToken = "<verificationToken>"; //Required
 var fields = null; //Optional
@@ -1042,7 +1042,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var username = "<username>"; //Required
 
@@ -1066,7 +1066,7 @@ var username = "<username>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
@@ -1091,7 +1091,7 @@ var fields = null; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1115,7 +1115,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var deleteUrl = "<deleteUrl>"; //Optional
@@ -1141,7 +1141,7 @@ var emailTemplate = "<emailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var email = "<email>"; //Required
@@ -1166,7 +1166,7 @@ var email = "<email>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var provider = "<provider>"; //Required
@@ -1227,7 +1227,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var message = "<message>"; //Required
@@ -1254,7 +1254,7 @@ var to = "<to>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var caption = "<caption>"; //Required
@@ -1285,7 +1285,7 @@ var shorturl = "<shorturl>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1318,7 +1318,7 @@ var statusModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1342,7 +1342,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1367,7 +1367,7 @@ var nextCursor = "<nextCursor>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1391,7 +1391,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1416,7 +1416,7 @@ var nextCursor = "<nextCursor>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1440,7 +1440,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1465,7 +1465,7 @@ var nextCursor = "<nextCursor>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Optional
@@ -1490,7 +1490,7 @@ var nextCursor = "<nextCursor>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1514,7 +1514,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1539,7 +1539,7 @@ var nextCursor = "<nextCursor>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1563,7 +1563,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1588,7 +1588,7 @@ var nextCursor = "<nextCursor>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1612,7 +1612,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1637,7 +1637,7 @@ var nextCursor = "<nextCursor>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1661,7 +1661,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1686,7 +1686,7 @@ var nextCursor = "<nextCursor>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1710,7 +1710,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var pageName = "<pageName>"; //Required
@@ -1735,7 +1735,7 @@ var pageName = "<pageName>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var albumId = "<albumId>"; //Required
@@ -1760,7 +1760,7 @@ var albumId = "<albumId>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -1784,7 +1784,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var caption = "<caption>"; //Required
@@ -1814,7 +1814,7 @@ var url = "<url>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var fields = null; //Optional
@@ -1839,7 +1839,7 @@ var fields = null; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var nextCursor = "<nextCursor>"; //Required
@@ -1879,7 +1879,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -1908,7 +1908,7 @@ var updateType = "<updateType>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -1935,7 +1935,7 @@ var object = { "customdata1": "Store my customdata1 value" };  //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -1960,7 +1960,7 @@ var objectName = "<objectName>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -1986,7 +1986,7 @@ var objectRecordId = "<objectRecordId>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var objectName = "<objectName>"; //Required
@@ -2033,7 +2033,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 
 var resetPasswordByOTPModel ={ 
@@ -2062,7 +2062,7 @@ var resetPasswordByOTPModel ={
  
  
 
- ```
+ ```js
 
 var otp = "<otp>"; //Required
 var phone = "<phone>"; //Required
@@ -2089,7 +2089,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var otp = "<otp>"; //Required
@@ -2115,7 +2115,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var phone = "<phone>"; //Required
@@ -2141,7 +2141,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var phoneAuthenticationModel ={ 
@@ -2172,7 +2172,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
@@ -2197,7 +2197,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
@@ -2222,7 +2222,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var phone = "<phone>"; //Required
@@ -2248,7 +2248,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var authUserRegistrationModel ={ 
@@ -2284,7 +2284,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 
@@ -2308,7 +2308,7 @@ var phone = "<phone>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2367,7 +2367,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2396,7 +2396,7 @@ var fields = null; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2426,7 +2426,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var phoneNo2FA = "<phoneNo2FA>"; //Required
@@ -2452,7 +2452,7 @@ var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2481,7 +2481,7 @@ var multiFactorAuthModelByEmailOtpWithLockout ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2515,7 +2515,7 @@ var securityQuestionAnswerModelByAccessToken ={
  
  
 
- ```
+ ```js
 
 
 var multiFactorAuthModelWithLockout ={ 
@@ -2549,7 +2549,7 @@ var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var googleAuthenticatorCode = "<googleAuthenticatorCode>"; //Required
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
@@ -2579,7 +2579,7 @@ var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var multiFactorAuthModelByBackupCode ={ 
@@ -2612,7 +2612,7 @@ var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var phoneNo2FA = "<phoneNo2FA>"; //Required
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
@@ -2638,7 +2638,7 @@ var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var multiFactorAuthModelByEmailOtp ={ 
@@ -2671,7 +2671,7 @@ var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var securityQuestionAnswerUpdateModel ={ 
@@ -2704,7 +2704,7 @@ var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Req
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var password = "<password>"; //Required
@@ -2737,7 +2737,7 @@ var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var password = "<password>"; //Required
 var username = "<username>"; //Required
@@ -2769,7 +2769,7 @@ var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var password = "<password>"; //Required
 var phone = "<phone>"; //Required
@@ -2801,7 +2801,7 @@ var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var emailIdModel ={ 
@@ -2830,7 +2830,7 @@ var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var securityQuestionAnswerUpdateModel ={  
@@ -2867,7 +2867,7 @@ var rbaIpEmailTemplate = "<rbaIpEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
@@ -2892,7 +2892,7 @@ var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2916,7 +2916,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -2940,7 +2940,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var emailId = "<emailId>"; //Required
@@ -2966,7 +2966,7 @@ var emailTemplate2FA = "<emailTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var secondFactorAuthenticationToken = "<secondFactorAuthenticationToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
@@ -2991,7 +2991,7 @@ var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var googleauthenticator = true; //Required
@@ -3016,7 +3016,7 @@ var googleauthenticator = true; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var otpauthenticator = true; //Required
@@ -3041,7 +3041,7 @@ var otpauthenticator = true; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3065,7 +3065,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3113,7 +3113,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 
 var resetPINByResetToken ={ 
@@ -3141,7 +3141,7 @@ var resetPINByResetToken ={
  
  
 
- ```
+ ```js
 
 
 var resetPINBySecurityQuestionAnswerAndEmailModel ={ 
@@ -3170,7 +3170,7 @@ var resetPINBySecurityQuestionAnswerAndEmailModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPINBySecurityQuestionAnswerAndUsernameModel ={ 
@@ -3199,7 +3199,7 @@ var resetPINBySecurityQuestionAnswerAndUsernameModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPINBySecurityQuestionAnswerAndPhoneModel ={ 
@@ -3228,7 +3228,7 @@ var resetPINBySecurityQuestionAnswerAndPhoneModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3257,7 +3257,7 @@ var changePINModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPINByPhoneAndOTPModel ={ 
@@ -3286,7 +3286,7 @@ var resetPINByPhoneAndOTPModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPINByEmailAndOtpModel ={ 
@@ -3315,7 +3315,7 @@ var resetPINByEmailAndOtpModel ={
  
  
 
- ```
+ ```js
 
 
 var resetPINByUsernameAndOtpModel ={ 
@@ -3344,7 +3344,7 @@ var resetPINByUsernameAndOtpModel ={
  
  
 
- ```
+ ```js
 
 
 var loginByPINModel ={ 
@@ -3372,7 +3372,7 @@ var sessionToken = "<sessionToken>"; //Required
  
  
 
- ```
+ ```js
 
 
 var forgotPINLinkByEmailModel ={ 
@@ -3401,7 +3401,7 @@ var resetPINUrl = "<resetPINUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var forgotPINLinkByUserNameModel ={ 
@@ -3430,7 +3430,7 @@ var resetPINUrl = "<resetPINUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var forgotPINOtpByPhoneModel ={ 
@@ -3458,7 +3458,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var pinRequiredModel ={ 
@@ -3486,7 +3486,7 @@ var pinAuthToken = "<pinAuthToken>"; //Required
  
  
 
- ```
+ ```js
 
 var sessionToken = "<sessionToken>"; //Required
 
@@ -3529,7 +3529,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3557,7 +3557,7 @@ var reauthByOtpModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3585,7 +3585,7 @@ var reauthByBackupCodeModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3613,7 +3613,7 @@ var reauthByGoogleAuthenticatorCodeModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3642,7 +3642,7 @@ var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3671,7 +3671,7 @@ var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3700,7 +3700,7 @@ var reauthByEmailOtpModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3733,7 +3733,7 @@ var securityQuestionAnswerUpdateModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
@@ -3758,7 +3758,7 @@ var smsTemplate2FA = "<smsTemplate2FA>"; //Optional
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var emailId = "<emailId>"; //Required
@@ -3799,7 +3799,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3830,7 +3830,7 @@ var consentUpdateModel ={
  
  
 
- ```
+ ```js
 
 var consentToken = "<consentToken>"; //Required
 
@@ -3865,7 +3865,7 @@ var consentSubmitModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3900,7 +3900,7 @@ var consentSubmitModel ={
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 
@@ -3924,7 +3924,7 @@ var accessToken = "<accessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var accessToken = "<accessToken>"; //Required
 var event = "<event>"; //Required
@@ -3964,7 +3964,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var verificationToken = "<verificationToken>"; //Required
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
@@ -3989,7 +3989,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var email = "<email>"; //Required
@@ -4017,7 +4017,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var username = "<username>"; //Required
@@ -4045,7 +4045,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var fields = null; //Optional
@@ -4085,7 +4085,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var otp = "<otp>"; //Required
 var phone = "<phone>"; //Required
@@ -4112,7 +4112,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var oneTouchLoginByEmailModel ={ 
@@ -4144,7 +4144,7 @@ var welcomeemailtemplate = "<welcomeemailtemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var oneTouchLoginByPhoneModel ={ 
@@ -4173,7 +4173,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var verificationToken = "<verificationToken>"; //Required
 var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
@@ -4198,7 +4198,7 @@ var welcomeEmailTemplate = "<welcomeEmailTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var clientGuid = "<clientGuid>"; //Required
 var fields = null; //Optional
@@ -4240,7 +4240,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 
 var passwordLessLoginOtpModel ={ 
@@ -4267,7 +4267,7 @@ This API is used to verify the otp sent to the email when doing a passwordless l
  
  
 
- ```
+ ```js
 
 
 var passwordLessLoginByEmailAndOtpModel ={ 
@@ -4295,7 +4295,7 @@ This API is used to verify the otp sent to the email when doing a passwordless  
  
  
 
- ```
+ ```js
 
 var passwordLessLoginByUserNameAndOtpModel ={ 
  "username": "<email>",
@@ -4321,7 +4321,7 @@ var fields = null; //Optional
  
  
 
- ```
+ ```js
 
 var phone = "<phone>"; //Required
 var smsTemplate = "<smsTemplate>"; //Optional
@@ -4346,7 +4346,7 @@ var smsTemplate = "<smsTemplate>"; //Optional
  
  
 
- ```
+ ```js
 
 var email = "<email>"; //Required
 var passwordLessLoginTemplate = "<passwordLessLoginTemplate>"; //Optional
@@ -4372,7 +4372,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 var username = "<username>"; //Required
 var passwordLessLoginTemplate = "<passwordLessLoginTemplate>"; //Optional
@@ -4398,7 +4398,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 var verificationToken = "<verificationToken>"; //Required
 var fields = null; //Optional
@@ -4435,7 +4435,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var timeDifference = 0; //Optional
 
@@ -4481,7 +4481,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var code = "<code>"; //Required
 var recordId = "<recordId>"; //Required
@@ -4506,7 +4506,7 @@ var recordId = "<recordId>"; //Required
  
  
 
- ```
+ ```js
 
 var type = "<type>"; //Required
 var limit = 0; //Optional
@@ -4546,7 +4546,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 
 var emailAuthenticationModel ={ 
@@ -4591,7 +4591,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var userNameAuthenticationModel ={ 
@@ -4636,7 +4636,7 @@ var verificationUrl = "<verificationUrl>"; //Optional
  
  
 
- ```
+ ```js
 
 
 var phoneAuthenticationModel ={ 
@@ -4701,7 +4701,7 @@ List of APIs in this Section:<br>
  
  
 
- ```
+ ```js
 
 var fbAccessToken = "<fbAccessToken>"; //Required
 var socialAppName = "<socialAppName>"; //Optional
@@ -4726,7 +4726,7 @@ var socialAppName = "<socialAppName>"; //Optional
  
  
 
- ```
+ ```js
 
 var twAccessToken = "<twAccessToken>"; //Required
 var twTokenSecret = "<twTokenSecret>"; //Required
@@ -4752,7 +4752,7 @@ var socialAppName = "<socialAppName>"; //Optional
  
  
 
- ```
+ ```js
 
 var googleAccessToken = "<googleAccessToken>"; //Required
 var clientId = "<clientId>"; //Optional
@@ -4779,7 +4779,7 @@ var socialAppName = "<socialAppName>"; //Optional
  
  
 
- ```
+ ```js
 
 var idToken = "<idToken>"; //Required
 
@@ -4803,7 +4803,7 @@ var idToken = "<idToken>"; //Required
  
  
 
- ```
+ ```js
 
 var lnAccessToken = "<lnAccessToken>"; //Required
 var socialAppName = "<socialAppName>"; //Optional
@@ -4828,7 +4828,7 @@ var socialAppName = "<socialAppName>"; //Optional
  
  
 
- ```
+ ```js
 
 var fsAccessToken = "<fsAccessToken>"; //Required
 
@@ -4852,7 +4852,7 @@ var fsAccessToken = "<fsAccessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var code = "<code>"; //Required
 var socialAppName = "<socialAppName>"; //Optional
@@ -4877,7 +4877,7 @@ var socialAppName = "<socialAppName>"; //Optional
  
  
 
- ```
+ ```js
 
 var code = "<code>"; //Required
 
@@ -4901,7 +4901,7 @@ var code = "<code>"; //Required
  
  
 
- ```
+ ```js
 
 var vkAccessToken = "<vkAccessToken>"; //Required
 
@@ -4925,7 +4925,7 @@ var vkAccessToken = "<vkAccessToken>"; //Required
  
  
 
- ```
+ ```js
 
 var googleAuthcode = "<googleAuthcode>"; //Required
 var socialAppName = "<socialAppName>"; //Optional
