@@ -3950,7 +3950,6 @@ List of APIs in this Section:<br>
 * GET : [Get Access Token By Foursquare Access Token](#GetAccessTokenByFoursquareAccessToken-get-)<br>
 * GET : [Access Token via Apple Id Code](#GetAccessTokenByAppleIdCode-get-)<br>
 * GET : [Access Token via WeChat Code](#GetAccessTokenByWeChatCode-get-)<br>
-* GET : [Access Token via Vkontakte Token](#GetAccessTokenByVkontakteAccessToken-get-)<br>
 * GET : [Access Token via Google AuthCode](#GetAccessTokenByGoogleAuthCode-get-)<br>
 
 
